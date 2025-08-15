@@ -122,7 +122,7 @@ export default function LandingPage() {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-3">
               <Image src="/logo-c.svg" alt="Convertor Logo" width={40} height={40} className="rounded-lg" />
-              <span className="text-xl font-bold text-foreground">Convertor</span>
+              <span className="text-xl font-bold text-foreground">Conversor</span>
             </div>
 
             {/* Desktop Navigation */}
@@ -277,7 +277,7 @@ export default function LandingPage() {
       <section id="galeria" className="py-20 bg-muted/10">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-6">Veja o Convertor em Ação</h2>
+            <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-6">Veja o Conversor em Ação</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               Interface intuitiva que sua equipe vai amar usar. Disponível em desktop, tablet e mobile.
             </p>
@@ -589,7 +589,7 @@ export default function LandingPage() {
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-6">Perguntas Frequentes</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Tire todas as suas dúvidas sobre o Convertor
+              Tire todas as suas dúvidas sobre o Conversor
             </p>
           </div>
 
@@ -600,10 +600,10 @@ export default function LandingPage() {
                 className="border rounded-lg px-6 hover:shadow-lg transition-all duration-300"
               >
                 <AccordionTrigger className="text-left text-lg font-semibold">
-                  Como o Convertor organiza minha equipe de vendas?
+                  Como o Conversor organiza minha equipe de vendas?
                 </AccordionTrigger>
                 <AccordionContent className="text-base leading-relaxed">
-                  O Convertor centraliza toda operação de vendas: cada vendedor tem sua agenda otimizada, leads
+                  O Conversor centraliza toda operação de vendas: cada vendedor tem sua agenda otimizada, leads
                   distribuídos automaticamente, follow-ups programados e metas acompanhadas em tempo real. Você tem
                   visão completa de quem está fazendo o quê, quando e com quais resultados.
                 </AccordionContent>
@@ -740,7 +740,7 @@ export default function LandingPage() {
             <div>
               <div className="flex items-center space-x-3 mb-4">
                 <Image src="/logo-c.svg" alt="Convertor Logo" width={32} height={32} className="rounded-lg" />
-                <span className="text-lg font-bold">Convertor</span>
+                <span className="text-lg font-bold">Conversor</span>
               </div>
               <p className="text-muted-foreground mb-4">A plataforma que transforma leads em vendas garantidas.</p>
               <div className="flex space-x-4">
@@ -805,10 +805,10 @@ export default function LandingPage() {
           </div>
 
           <div className="border-t mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-muted-foreground">
-            <p>&copy; 2024 Convertor. Todos os direitos reservados.</p>
+            <p>&copy; 2025 Conversor. Todos os direitos reservados.</p>
             <div className="flex items-center space-x-4 mt-4 md:mt-0">
               <Mail className="h-4 w-4" />
-              <span>contato@convertor.com.br</span>
+              <span>contato@conversor.com.br</span>
             </div>
           </div>
         </div>
