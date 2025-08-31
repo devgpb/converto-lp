@@ -8,13 +8,13 @@ export default function FAQ() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-6">Perguntas Frequentes</h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">Tire todas as suas dúvidas sobre o Conversor</p>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">Tire todas as suas dúvidas sobre o Converto</p>
         </div>
 
         <div className="max-w-4xl mx-auto">
           <Accordion type="single" collapsible className="space-y-4">
             <AccordionItem value="item-1" className="border rounded-lg px-6 hover:shadow-lg transition-all duration-300">
-              <AccordionTrigger className="text-left text-lg font-semibold">Como o Conversor organiza minha equipe?</AccordionTrigger>
+              <AccordionTrigger className="text-left text-lg font-semibold">Como o Converto organiza minha equipe?</AccordionTrigger>
               <AccordionContent className="text-base leading-relaxed">
                 Automatiza tarefas, distribui leads, agenda follow-ups e oferece visões claras dos resultados por vendedor e por etapa do funil.
               </AccordionContent>

@@ -22,7 +22,7 @@ export default function Gallery() {
     <section id="galeria" className="py-20 bg-muted/10">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-6">Veja o Conversor em Ação</h2>
+          <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-6">Veja o Converto em Ação</h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Interface intuitiva que sua equipe vai amar usar. Disponível em desktop, tablet e mobile.
           </p>

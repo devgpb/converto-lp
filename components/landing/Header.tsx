@@ -14,8 +14,8 @@ export default function Header() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center space-x-3">
-            <Image src="/logo-c.svg" alt="Convertor Logo" width={40} height={40} className="rounded-lg" />
-            <span className="text-xl font-bold text-foreground">Conversor</span>
+            <Image src="/logo-c.svg" alt="Converto Logo" width={40} height={40} className="rounded-lg" />
+            <span className="text-xl font-bold text-foreground">Converto</span>
           </div>
 
           <nav className="hidden md:flex items-center space-x-6">

@@ -11,8 +11,8 @@ export default function Footer() {
         <div className="grid md:grid-cols-3 gap-8">
           <div>
             <div className="flex items-center space-x-3 mb-4">
-              <Image src="/logo-c.svg" alt="Convertor Logo" width={32} height={32} className="rounded-lg" />
-              <span className="text-lg font-bold">Conversor</span>
+              <Image src="/logo-c.svg" alt="Converto Logo" width={32} height={32} className="rounded-lg" />
+              <span className="text-lg font-bold">Converto</span>
             </div>
             <p className="text-muted-foreground mb-4">A plataforma que transforma leads em vendas garantidas.</p>
             <div className="flex space-x-4">
@@ -45,10 +45,10 @@ export default function Footer() {
         </div>
 
         <div className="border-t mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-muted-foreground">
-          <p>&copy; 2025 Conversor. Todos os direitos reservados.</p>
+          <p>&copy; 2025 Converto. Todos os direitos reservados.</p>
           <div className="flex items-center space-x-4 mt-4 md:mt-0">
             <Mail className="h-4 w-4" />
-            <span>contato@conversor.com.br</span>
+            <span>contato@converto.com.br</span>
           </div>
         </div>
       </div>

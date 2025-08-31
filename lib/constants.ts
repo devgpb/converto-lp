@@ -10,13 +10,13 @@ export type GalleryImage = {
 export const GALLERY_IMAGES: GalleryImage[] = [
   {
     src: "/crm-sales-dashboard.png",
-    alt: "Dashboard de Vendas do Conversor",
+    alt: "Dashboard de Vendas do Converto",
     title: "Dashboard Completo",
     description: "Visualize todos os seus resultados em tempo real",
   },
   {
     src: "/mobile-crm-app.png",
-    alt: "App Mobile do Conversor",
+    alt: "App Mobile do Converto",
     title: "App Mobile",
     description: "Acesse de qualquer lugar, a qualquer momento",
   },
