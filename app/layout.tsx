@@ -3,7 +3,7 @@ import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import './globals.css'
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'converto-gilt.vercel.app'
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://converto-gilt.vercel.app'
 const titleDefault = 'Converto — CRM simples integrado ao WhatsApp'
 const descriptionDefault =
   'Converto é um CRM integrado ao WhatsApp, com extensão de navegador em sidebar para registrar dados de contatos, marcar eventos e sincronizar informações de vendas de forma simples.'

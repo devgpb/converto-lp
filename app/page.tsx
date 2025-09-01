@@ -20,8 +20,8 @@ export default function LandingPage() {
             '@context': 'https://schema.org',
             '@type': 'Organization',
             name: 'Converto',
-            url: process.env.NEXT_PUBLIC_SITE_URL || 'converto-gilt.vercel.app',
-            logo: (process.env.NEXT_PUBLIC_SITE_URL || 'converto-gilt.vercel.app') + '/logo.png',
+            url: process.env.NEXT_PUBLIC_SITE_URL || 'https://converto-gilt.vercel.app',
+            logo: (process.env.NEXT_PUBLIC_SITE_URL || 'https://converto-gilt.vercel.app') + '/logo.png',
             sameAs: [],
           }),
         }}
@@ -37,7 +37,7 @@ export default function LandingPage() {
             offers: { '@type': 'Offer', price: '0', priceCurrency: 'BRL' },
             description:
               'CRM integrado ao WhatsApp com extensão em sidebar para anotações de contatos, eventos e sincronização de dados de vendas.',
-            url: process.env.NEXT_PUBLIC_SITE_URL || 'converto-gilt.vercel.app',
+            url: process.env.NEXT_PUBLIC_SITE_URL || 'https://converto-gilt.vercel.app',
           }),
         }}
       />
