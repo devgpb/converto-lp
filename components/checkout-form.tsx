@@ -27,7 +27,7 @@ const plans: Plan[] = [
   {
     id: "starter",
     label: "1 conta",
-    priceId: "price_1RxcLYGIUmR0keuMTKUOW9Wm",
+    priceId: "price_1S2YPWGIUmR0keuMJ9riRMxo",
     description: "Ideal para freelancers e pequenos negócios",
     pricePerSeat: 29.9,
     minSeats: 1,
@@ -36,7 +36,7 @@ const plans: Plan[] = [
   {
     id: "team",
     label: "2 até 3 contas",
-    priceId: "price_1RxcLYGIUmR0keuMTKUOW9Wm",
+    priceId: "price_1S2YPWGIUmR0keuMJ9riRMxo",
     description: "Perfeito para equipes pequenas",
     pricePerSeat: 23.0,
     minSeats: 2,
@@ -45,7 +45,7 @@ const plans: Plan[] = [
   {
     id: "medium",
     label: "4 até 5 contas",
-    priceId: "price_1RxcLYGIUmR0keuMTKUOW9Wm",
+    priceId: "price_1S2YPWGIUmR0keuMJ9riRMxo",
     description: "Para empresas em crescimento",
     pricePerSeat: 26.0,
     minSeats: 4,
@@ -54,7 +54,7 @@ const plans: Plan[] = [
   {
     id: "large",
     label: "6+ contas",
-    priceId: "price_1RxcLYGIUmR0keuMTKUOW9Wm",
+    priceId: "price_1S2YPWGIUmR0keuMJ9riRMxo",
     description: "Para grandes organizações",
     pricePerSeat: 30.0,
     minSeats: 6,
