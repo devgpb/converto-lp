@@ -15,17 +15,12 @@ export const GALLERY_IMAGES: GalleryImage[] = [
     description: "Visualize todos os seus resultados em tempo real",
   },
   {
-    src: "/mobile-crm-app.png",
-    alt: "App Mobile do Converto",
-    title: "App Mobile",
+    src: "/listagem_clientes.png",
+    alt: "Listagem de Clientes",
+    title: "Listagem de Clientes",
     description: "Acesse de qualquer lugar, a qualquer momento",
   },
-  {
-    src: "/tablet-crm-calendario-reunioes.png",
-    alt: "Calendário de Reuniões no Tablet",
-    title: "Calendário Inteligente",
-    description: "Organize sua agenda e nunca perca uma reunião",
-  },
+  
 ]
 
 export type Feature = {
