@@ -16,4 +16,4 @@ NEXT_PUBLIC_API_URL=http://localhost:4000
 Observação
 - Componentes client-side usam `NEXT_PUBLIC_API_URL` em tempo de execução para chamar a API externa.
 
-deploy IIII
+deploy IIIII
