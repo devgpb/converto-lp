@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import './globals.css'
+import WhatsappFloat from '@/components/whatsapp-float'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://converto-gilt.vercel.app'
 const titleDefault = 'Converto — CRM simples integrado ao WhatsApp'
@@ -99,7 +100,10 @@ html {
 }
         `}</style>
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <WhatsappFloat />
+      </body>
     </html>
   )
 }

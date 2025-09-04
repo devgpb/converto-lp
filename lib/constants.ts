@@ -124,3 +124,11 @@ export const PRICING_PLANS: PricingPlan[] = [
   },
 ]
 
+
+// Contact configuration
+export const CONTACT_INFO = {
+  phoneDisplay: "(87) 99135-8619",
+  phoneE164: "5587991358619",
+  email: "converto-contato@gmail.com",
+  whatsappUrl: "https://wa.me/5587991358619",
+}
