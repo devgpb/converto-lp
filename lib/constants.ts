@@ -132,3 +132,6 @@ export const CONTACT_INFO = {
   email: "converto-contato@gmail.com",
   whatsappUrl: "https://wa.me/5587991358619",
 }
+
+// Corporate access
+export const CORPORATE_ACCESS_URL = "https://convertocorp.vercel.app"
