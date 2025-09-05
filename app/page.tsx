@@ -4,6 +4,7 @@ import FloatingIndicator from "@/components/landing/FloatingIndicator"
 import Header from "@/components/landing/Header"
 import Hero from "@/components/landing/Hero"
 import Gallery from "@/components/landing/Gallery"
+import ConvertoFeatures from "@/components/converto-features"
 import Features from "@/components/landing/Features"
 import Planos from "@/components/landing/Planos"
 import FAQ from "@/components/landing/FAQ"
@@ -45,6 +46,7 @@ export default function LandingPage() {
       <Header />
       <Hero />
       <Gallery />
+      <ConvertoFeatures />
       <Features />
       <Planos />
       <FAQ />

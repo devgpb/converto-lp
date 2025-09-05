@@ -21,7 +21,7 @@ export default function FinalCTA() {
             className="text-lg px-12 py-6 shadow-2xl hover:shadow-white/25 transition-all duration-300 hover:scale-105"
             onClick={() => scrollToSection("precos")}
           >
-            Começar Agora - R$ 97/mês
+            Começar Agora - R$ 29,90/mês
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
           <Button
