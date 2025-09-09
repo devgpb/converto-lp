@@ -2,14 +2,14 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Building2, Mail, User, Lock, ArrowLeft } from "lucide-react"
+import { Building2, Mail, User, Lock, ArrowLeft, LogOut } from "lucide-react"
 import { API_URL } from "@/lib/api"
 
 interface FormData {
@@ -36,6 +36,44 @@ export function RegistrationForm() {
   const [accountType, setAccountType] = useState<"company" | "personal">("company")
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
+  const [userId, setUserId] = useState<string | null>(null)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [termsAccepted, setTermsAccepted] = useState(false)
+  const [marketingOptIn, setMarketingOptIn] = useState(false)
+  const isUpdateMode = isLoggedIn
+
+  useEffect(() => {
+    const sync = () => {
+      try {
+        const storedUserId = sessionStorage.getItem("user_id")
+        const token = sessionStorage.getItem("auth_token")
+        const storedType = sessionStorage.getItem("account_type") as "company" | "personal" | null
+        setUserId(storedUserId)
+        setIsLoggedIn(Boolean(storedUserId || token))
+        if (storedType === "company" || storedType === "personal") setAccountType(storedType)
+      } catch {}
+    }
+    sync()
+    window.addEventListener("focus", sync)
+    window.addEventListener("pageshow", sync as any)
+    return () => {
+      window.removeEventListener("focus", sync)
+      window.removeEventListener("pageshow", sync as any)
+    }
+  }, [])
+
+  const handleLogout = () => {
+    try {
+      sessionStorage.removeItem("tenant_id")
+      sessionStorage.removeItem("user_id")
+      sessionStorage.removeItem("account_type")
+      sessionStorage.removeItem("auth_token")
+    } catch {}
+    setUserId(null)
+    setIsLoggedIn(false)
+    setAccountType("company")
+    router.push("/")
+  }
 
   const onlyDigits = (v: string) => v.replace(/\D/g, "")
 
@@ -80,13 +118,19 @@ export function RegistrationForm() {
 
     // Validate form
     const cpfDigits = formData.cpf.replace(/\D/g, "")
-    if (!formData.adminNome || !formData.adminEmail || !formData.senha || !cpfDigits) {
-      setError("Preencha nome, email, senha e CPF")
-      return
-    }
-    if (cpfDigits.length !== 11) {
-      setError("CPF inválido")
-      return
+    if (!isUpdateMode) {
+      if (!termsAccepted) {
+        setError("Você precisa aceitar os Termos e a Política de Privacidade")
+        return
+      }
+      if (!formData.adminNome || !formData.adminEmail || !formData.senha || !cpfDigits) {
+        setError("Preencha nome, email, senha e CPF")
+        return
+      }
+      if (cpfDigits.length !== 11) {
+        setError("CPF inválido")
+        return
+      }
     }
     if (accountType === "company") {
       const cnpjDigits = formData.cnpj.replace(/\D/g, "")
@@ -104,54 +148,110 @@ export function RegistrationForm() {
     setError("")
 
     try {
-      // First create tenant (para pessoal usamos dados do usuário)
-      const tenantResponse = await fetch(`${API_URL}/tenants`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: accountType === "company" ? formData.empresa : formData.adminNome,
-          email: accountType === "company" ? formData.emailEmpresa : formData.adminEmail,
-        }),
-      })
+      // Creation flow
+      if (!isUpdateMode) {
+        // Create tenant
+        const tenantResponse = await fetch(`${API_URL}/tenants`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: accountType === "company" ? formData.empresa : formData.adminNome,
+            email: accountType === "company" ? formData.emailEmpresa : formData.adminEmail,
+          }),
+        })
 
-      if (!tenantResponse.ok) {
-        const data = await tenantResponse.json()
-        const msg = (data && typeof data.error.error === "string" && data.error.error) || "Erro ao criar empresa"
-        throw new Error(msg)
-      
-      }
-
-      const tenant = await tenantResponse.json()
-      try {
-        if (tenant?.id) {
-          localStorage.setItem("tenant_id", tenant.id)
-          localStorage.setItem("account_type", accountType)
+        if (!tenantResponse.ok) {
+          try {
+            const data = await tenantResponse.json()
+            const msg = (data && typeof data.error === "string" && data.error) || "Erro ao criar empresa"
+            throw new Error(msg)
+          } catch (_) {
+            throw new Error("Erro ao criar empresa")
+          }
         }
-      } catch {}
 
-      // Then register admin user
-      const authResponse = await fetch(`${API_URL}/register`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          tenant_id: tenant.id,
-          email: formData.adminEmail,
-          password: formData.senha,
-          name: formData.adminNome,
-          cpf: formData.cpf,
-          ...(accountType === "company" ? { cnpj: formData.cnpj } : {}),
-          account_type: accountType,
-        }),
-      })
+        const tenant = await tenantResponse.json()
+          try {
+            if (tenant?.id) {
+              sessionStorage.setItem("tenant_id", tenant.id)
+              sessionStorage.setItem("account_type", accountType)
+            }
+          } catch {}
 
-      if (!authResponse.ok) {
-        const data = await authResponse.json()
-        console.log("data", data.error)
-        const msg = data.error 
-        throw new Error(msg)
+        // Register admin user
+        const authResponse = await fetch(`${API_URL}/register`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            tenant_id: tenant.id,
+            email: formData.adminEmail,
+            password: formData.senha,
+            name: formData.adminNome,
+            cpf: formData.cpf,
+            ...(accountType === "company" ? { cnpj: formData.cnpj } : {}),
+            account_type: accountType,
+            marketing_opt_in: marketingOptIn,
+          }),
+        })
+
+        if (!authResponse.ok) {
+          try {
+            const data = await authResponse.json()
+            const msg = (data && typeof data.error === "string" && data.error) || "Erro ao cadastrar usuário"
+            throw new Error(msg)
+          } catch (_) {
+            throw new Error("Erro ao cadastrar usuário")
+          }
+        }
+
+        const user = await authResponse.json()
+        try {
+          const uid = user?.user?.id ?? user?.id ?? user?.user_id
+          const token = user?.token ?? user?.access_token ?? user?.jwt ?? user?.data?.token
+          if (uid) sessionStorage.setItem("user_id", String(uid))
+          if (token) sessionStorage.setItem("auth_token", String(token))
+          setUserId(uid ?? null)
+          setIsLoggedIn(Boolean(uid || token))
+        } catch {}
+      } else {
+        // Update flow: send changes with id for backend to handle update
+        const tenantId = sessionStorage.getItem("tenant_id")
+        const uid = sessionStorage.getItem("user_id")
+        const token = sessionStorage.getItem("auth_token")
+        const updateResponse = await fetch(`${API_URL}/usuarios/${uid}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
+          body: JSON.stringify({
+            id: uid,
+            tenant_id: tenantId,
+            account_type: accountType,
+            // don't resend admin data; only account type and company info if selected
+            // Optional company info
+            ...(accountType === "company"
+              ? { enterprise_name: formData.empresa, email: formData.emailEmpresa, enterprise_cnpj: formData.cnpj }
+              : {}),
+          }),
+        })
+
+        if (!updateResponse.ok) {
+          try {
+            const data = await updateResponse.json()
+            const msg = (data && typeof data.error === "string" && data.error) || "Erro ao atualizar cadastro"
+            throw new Error(msg)
+          } catch (_) {
+            throw new Error("Erro ao atualizar cadastro")
+          }
+        }
+
+        try {
+          sessionStorage.setItem("account_type", accountType)
+        } catch {}
       }
 
-      // Navigate to checkout
+      // Navigate to checkout always after success
       router.push("/checkout")
     } catch (err) {
       setError(err instanceof Error ? err.message : "Erro ao cadastrar. Tente novamente.")
@@ -172,6 +272,16 @@ export function RegistrationForm() {
             <ArrowLeft className="w-4 h-4 mr-2" />
             Voltar
           </Button>
+          {isUpdateMode && (
+            <Button
+              variant="ghost"
+              onClick={handleLogout}
+              className="mb-4 ml-2 text-muted-foreground hover:text-foreground"
+            >
+              <LogOut className="w-4 h-4 mr-2" />
+              Sair
+            </Button>
+          )}
 
           <div className="text-center">
             <h1 className="text-3xl font-bold text-foreground mb-2">Criar sua conta</h1>
@@ -271,67 +381,94 @@ export function RegistrationForm() {
                 <div className="border-t pt-4">
                   <h3 className="font-medium text-foreground mb-4">Dados do administrador</h3>
 
-                  <div className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="adminNome" className="flex items-center gap-2">
-                        <User className="w-4 h-4" />
-                        Nome completo
-                      </Label>
-                      <Input
-                        id="adminNome"
-                        type="text"
-                        placeholder="Seu nome completo"
-                        value={formData.adminNome}
-                        onChange={(e) => handleInputChange("adminNome", e.target.value)}
-                        required
-                      />
-                    </div>
+                  {isUpdateMode ? (
+                    <p className="text-sm text-muted-foreground">
+                      Você já está conectado. Não é possível editar nome, email ou CPF aqui. Altere apenas o tipo de cadastro e preencha dados da empresa se necessário.
+                    </p>
+                  ) : (
+                    <div className="space-y-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="adminNome" className="flex items-center gap-2">
+                          <User className="w-4 h-4" />
+                          Nome completo
+                        </Label>
+                        <Input
+                          id="adminNome"
+                          type="text"
+                          placeholder="Seu nome completo"
+                          value={formData.adminNome}
+                          onChange={(e) => handleInputChange("adminNome", e.target.value)}
+                          required
+                        />
+                      </div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="adminEmail" className="flex items-center gap-2">
-                        <Mail className="w-4 h-4" />
-                        Email do administrador
-                      </Label>
-                      <Input
-                        id="adminEmail"
-                        type="email"
-                        placeholder="seu@email.com"
-                        value={formData.adminEmail}
-                        onChange={(e) => handleInputChange("adminEmail", e.target.value)}
-                        required
-                      />
-                    </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="adminEmail" className="flex items-center gap-2">
+                          <Mail className="w-4 h-4" />
+                          Email do administrador
+                        </Label>
+                        <Input
+                          id="adminEmail"
+                          type="email"
+                          placeholder="seu@email.com"
+                          value={formData.adminEmail}
+                          onChange={(e) => handleInputChange("adminEmail", e.target.value)}
+                          required
+                        />
+                      </div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="cpf" className="flex items-center gap-2">
-                        <User className="w-4 h-4" />
-                        CPF
-                      </Label>
-                      <Input
-                        id="cpf"
-                        inputMode="numeric"
-                        placeholder="000.000.000-00"
-                        value={formData.cpf}
-                        onChange={(e) => handleInputChange("cpf", e.target.value)}
-                        required
-                      />
-                    </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="cpf" className="flex items-center gap-2">
+                          <User className="w-4 h-4" />
+                          CPF
+                        </Label>
+                        <Input
+                          id="cpf"
+                          inputMode="numeric"
+                          placeholder="000.000.000-00"
+                          value={formData.cpf}
+                          onChange={(e) => handleInputChange("cpf", e.target.value)}
+                          required
+                        />
+                      </div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="senha" className="flex items-center gap-2">
-                        <Lock className="w-4 h-4" />
-                        Senha
-                      </Label>
-                      <Input
-                        id="senha"
-                        type="password"
-                        placeholder="Crie uma senha segura"
-                        value={formData.senha}
-                        onChange={(e) => handleInputChange("senha", e.target.value)}
-                        required
-                      />
+                      <div className="space-y-2">
+                        <Label htmlFor="senha" className="flex items-center gap-2">
+                          <Lock className="w-4 h-4" />
+                          Senha
+                        </Label>
+                        <Input
+                          id="senha"
+                          type="password"
+                          placeholder="Crie uma senha segura"
+                          value={formData.senha}
+                          onChange={(e) => handleInputChange("senha", e.target.value)}
+                          required
+                        />
+                      </div>
+
+                      <div className="space-y-2 pt-2">
+                        <label className="flex items-start gap-2 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={termsAccepted}
+                            onChange={(e) => setTermsAccepted(e.target.checked)}
+                          />
+                          <span className="text-sm text-muted-foreground">
+                            Li e concordo com os Termos de Uso e a Política de Privacidade
+                          </span>
+                        </label>
+                        <label className="flex items-start gap-2 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={marketingOptIn}
+                            onChange={(e) => setMarketingOptIn(e.target.checked)}
+                          />
+                          <span className="text-sm text-muted-foreground">Aceito receber comunicações de marketing</span>
+                        </label>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
 

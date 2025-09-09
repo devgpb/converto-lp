@@ -24,7 +24,7 @@ export function ConfirmationPage() {
     const fetchStatus = async () => {
       try {
         // Get tenant ID from auth (simulate)
-        const tenantId = localStorage.getItem("tenant_id")
+        const tenantId = sessionStorage.getItem("tenant_id")
 
         if (!tenantId) {
           router.push("/cadastro")
@@ -52,11 +52,11 @@ export function ConfirmationPage() {
   }, [router])
 
   const handleGoToUsers = () => {
-    window.location.href = process.env.NEXT_PUBLIC_URL_CORP || ""
+    window.location.href = process.env.NEXT_PUBLIC_URL_CORP || "http://localhost:4200"
   }
 
   const handleGoToSystem = () => {
-    window.location.href = process.env.NEXT_PUBLIC_URL_CORP || ""
+    window.location.href = process.env.NEXT_PUBLIC_URL_CORP || "http://localhost:4200"
   }
 
   if (isLoading) {

@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import './globals.css'
+import ConsentBanner from '@/components/consent-banner'
+import AnalyticsGate from '@/components/analytics-gate'
 import WhatsappFloat from '@/components/whatsapp-float'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://converto-gilt.vercel.app'
@@ -101,6 +103,8 @@ html {
         `}</style>
       </head>
       <body>
+        <AnalyticsGate />
+        <ConsentBanner />
         {children}
         <WhatsappFloat />
       </body>

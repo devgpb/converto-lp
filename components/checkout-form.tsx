@@ -71,7 +71,7 @@ export function CheckoutForm() {
 
   useEffect(() => {
     try {
-      const at = localStorage.getItem("account_type")
+      const at = sessionStorage.getItem("account_type")
       if (at === "personal" || at === "company") {
         setAccountType(at)
         if (at === "personal") {
@@ -83,8 +83,10 @@ export function CheckoutForm() {
     } catch {}
   }, [])
 
-  const currentPlan = plans.find((p) => p.id === selectedPlan)!
-  const totalPrice = currentPlan.pricePerSeat * seats
+  const visiblePlans = accountType === "personal" ? plans.filter((p) => (p.maxSeats ?? p.minSeats) === 1) : plans
+  const currentPlan = visiblePlans.find((p) => p.id === selectedPlan) || visiblePlans[0]
+  const seatsEffective = accountType === "personal" ? 1 : seats
+  const totalPrice = currentPlan.pricePerSeat * seatsEffective
 
   const handlePlanChange = (planId: string) => {
     const plan = plans.find((p) => p.id === planId)!
@@ -129,7 +131,7 @@ export function CheckoutForm() {
 
     try {
       // Get tenant ID from auth (simulate)
-      const tenantId = localStorage.getItem("tenant_id") // This would come from your auth service
+      const tenantId = sessionStorage.getItem("tenant_id") // This would come from your auth service
 
       if (!tenantId) {
         throw new Error("Sessão expirada. Faça login novamente.")
@@ -194,7 +196,7 @@ export function CheckoutForm() {
             <CardContent>
               <RadioGroup value={selectedPlan} onValueChange={handlePlanChange}>
                 <div className="space-y-3">
-                  {plans.map((plan) => (
+                  {visiblePlans.map((plan) => (
                     <div
                       key={plan.id}
                       className="flex items-center space-x-3 p-4 border rounded-lg hover:bg-muted/50 transition-colors"
