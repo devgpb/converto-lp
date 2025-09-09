@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -67,18 +67,42 @@ export function CheckoutForm() {
   const [seats, setSeats] = useState(1)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
+  const [accountType, setAccountType] = useState<"company" | "personal">("company")
+
+  useEffect(() => {
+    try {
+      const at = localStorage.getItem("account_type")
+      if (at === "personal" || at === "company") {
+        setAccountType(at)
+        if (at === "personal") {
+          // Força 1 conta e plano de 1 conta
+          setSeats(1)
+          setSelectedPlan("starter")
+        }
+      }
+    } catch {}
+  }, [])
 
   const currentPlan = plans.find((p) => p.id === selectedPlan)!
   const totalPrice = currentPlan.pricePerSeat * seats
 
   const handlePlanChange = (planId: string) => {
     const plan = plans.find((p) => p.id === planId)!
+    if (accountType === "personal" && plan.minSeats > 1) {
+      setSelectedPlan("starter")
+      setSeats(1)
+      return
+    }
     setSelectedPlan(planId)
     setSeats(plan.minSeats)
     setError("")
   }
 
   const handleSeatsChange = (value: string) => {
+    if (accountType === "personal") {
+      setSeats(1)
+      return
+    }
     const numSeats = Number.parseInt(value) || 1
     const plan = currentPlan
 
@@ -95,7 +119,7 @@ export function CheckoutForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (seats < currentPlan.minSeats || (currentPlan.maxSeats && seats > currentPlan.maxSeats)) {
+    if (accountType !== "personal" && (seats < currentPlan.minSeats || (currentPlan.maxSeats && seats > currentPlan.maxSeats))) {
       setError(`Número de contas deve estar entre ${currentPlan.minSeats} e ${currentPlan.maxSeats || "∞"}`)
       return
     }
@@ -117,7 +141,7 @@ export function CheckoutForm() {
         body: JSON.stringify({
           tenant_id: tenantId,
           price_id: currentPlan.priceId,
-          seatCountInicial: seats,
+          seatCountInicial: accountType === "personal" ? 1 : seats,
           success_url: `${window.location.origin}/confirmacao`,
           cancel_url: `${window.location.origin}/checkout`,
         }),
@@ -151,7 +175,9 @@ export function CheckoutForm() {
 
           <div className="text-center">
             <h1 className="text-3xl font-bold text-foreground mb-2">Finalizar assinatura</h1>
-            <p className="text-muted-foreground">Escolha seu plano e número de usuários</p>
+            <p className="text-muted-foreground">
+              {accountType === "personal" ? "Escolha seu plano" : "Escolha seu plano e número de usuários"}
+            </p>
           </div>
         </div>
 
@@ -197,34 +223,36 @@ export function CheckoutForm() {
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader>
-              <CardTitle>Número de usuários</CardTitle>
-              <CardDescription>Quantos usuários terão acesso ao sistema?</CardDescription>
-            </CardHeader>
+          {accountType !== "personal" && (
+            <Card>
+              <CardHeader>
+                <CardTitle>Número de usuários</CardTitle>
+                <CardDescription>Quantos usuários terão acesso ao sistema?</CardDescription>
+              </CardHeader>
 
-            <CardContent>
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="seats">Número de contas</Label>
-                  <Input
-                    id="seats"
-                    type="number"
-                    min={currentPlan.minSeats}
-                    max={currentPlan.maxSeats}
-                    value={seats}
-                    onChange={(e) => handleSeatsChange(e.target.value)}
-                    className="w-full"
-                  />
-                  <p className="text-sm text-muted-foreground">
-                    {currentPlan.maxSeats
-                      ? `Entre ${currentPlan.minSeats} e ${currentPlan.maxSeats} contas`
-                      : `Mínimo ${currentPlan.minSeats} contas`}
-                  </p>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="seats">Número de contas</Label>
+                    <Input
+                      id="seats"
+                      type="number"
+                      min={currentPlan.minSeats}
+                      max={currentPlan.maxSeats}
+                      value={seats}
+                      onChange={(e) => handleSeatsChange(e.target.value)}
+                      className="w-full"
+                    />
+                    <p className="text-sm text-muted-foreground">
+                      {currentPlan.maxSeats
+                        ? `Entre ${currentPlan.minSeats} e ${currentPlan.maxSeats} contas`
+                        : `Mínimo ${currentPlan.minSeats} contas`}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          )}
 
           <Card>
             <CardHeader>
@@ -243,7 +271,7 @@ export function CheckoutForm() {
 
                 <div className="flex justify-between items-center">
                   <span className="text-foreground">Número de contas:</span>
-                  <span className="font-medium">{seats}</span>
+                  <span className="font-medium">{accountType === "personal" ? 1 : seats}</span>
                 </div>
 
                 <div className="flex justify-between items-center">
@@ -254,7 +282,7 @@ export function CheckoutForm() {
                 <div className="border-t pt-4">
                   <div className="flex justify-between items-center text-lg font-bold">
                     <span>Total mensal:</span>
-                    <span className="text-primary">R$ {totalPrice.toFixed(2).replace(".", ",")}</span>
+                    <span className="text-primary">R$ {(currentPlan.pricePerSeat * (accountType === "personal" ? 1 : seats)).toFixed(2).replace(".", ",")}</span>
                   </div>
                 </div>
 

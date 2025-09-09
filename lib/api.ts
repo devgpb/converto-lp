@@ -4,7 +4,7 @@ export const API_URL = ((): string => {
     return process.env.NEXT_PUBLIC_API_URL;
   }
   // Sensible local default
-  return "http://localhost:4000";
+  return "http://localhost:3000/api";
 })();
 
 export async function apiFetch<T = any>(path: string, init?: RequestInit): Promise<T> {
