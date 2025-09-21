@@ -16,14 +16,14 @@ export default function FAQ() {
             <AccordionItem value="item-1" className="border rounded-lg px-6 hover:shadow-lg transition-all duration-300">
               <AccordionTrigger className="text-left text-lg font-semibold">Como o Converto organiza minha equipe?</AccordionTrigger>
               <AccordionContent className="text-base leading-relaxed">
-                Automatiza tarefas, distribui leads, agenda follow-ups e oferece visões claras dos resultados por vendedor e por etapa do funil.
+                O Converto simplifica a gestão da sua equipe, permitindo organizar, acompanhar e nutrir cada lead, além de apoiar cada vendedor com foco total em facilidade e eficiência.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-2" className="border rounded-lg px-6 hover:shadow-lg transition-all duration-300">
               <AccordionTrigger className="text-left text-lg font-semibold">É difícil implementar?</AccordionTrigger>
               <AccordionContent className="text-base leading-relaxed">
-                Não. A implementação é guiada e sua equipe começa a operar em poucas horas, com treinamentos e suporte.
+                Não. A implementação é guiada e sua equipe começa a operar em poucos minutos, com tutoriais gravados e suporte.
               </AccordionContent>
             </AccordionItem>
 
@@ -35,9 +35,9 @@ export default function FAQ() {
             </AccordionItem>
 
             <AccordionItem value="item-4" className="border rounded-lg px-6 hover:shadow-lg transition-all duration-300">
-              <AccordionTrigger className="text-left text-lg font-semibold">Posso integrar com WhatsApp e email?</AccordionTrigger>
+              <AccordionTrigger className="text-left text-lg font-semibold">Posso integrar com WhatsApp?</AccordionTrigger>
               <AccordionContent className="text-base leading-relaxed">
-                Sim. Integrações nativas e via API com WhatsApp, email, calendários e dezenas de outras ferramentas.
+                Sim. O Converto vem com uma extensão que se conecta diretamente com seu whatsapp.
               </AccordionContent>
             </AccordionItem>
 

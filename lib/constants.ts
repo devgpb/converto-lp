@@ -5,22 +5,50 @@ export type GalleryImage = {
   alt: string
   title: string
   description: string
+  icon?: React.ComponentType<{ className?: string }>
 }
 
 export const GALLERY_IMAGES: GalleryImage[] = [
   {
+    src: "/ext_whatss.png",
+    alt: "Extensão para WhatsApp em tempo real",
+    title: "WhatsApp conectado ao seu CRM",
+    description:
+      "Envie e leia mensagens com contexto do cliente sem sair do WhatsApp Web. Ganhe velocidade e padronize seu atendimento.",
+    icon: Zap,
+  },
+  {
+    src: "/import.png",
+    alt: "Importe todos os seus clientes",
+    title: "Traga sua base em minutos",
+    description:
+      "Importe contatos do WhatsApp, Excel ou Google Contacts com poucos cliques e comece a vender no mesmo dia.",
+    icon: Users,
+  },
+  {
+    src: "/ligacoes.png",
+    alt: "Faça lista de clientes para contato com um clique",
+    title: "Listas inteligentes de contato",
+    description:
+      "Organize filas de ligação e follow-up automático. Concentre sua equipe em quem tem intenção de compra.",
+    icon: Target,
+  },
+  {
     src: "/crm-sales-dashboard.png",
     alt: "Dashboard de Vendas do Converto",
-    title: "Dashboard Completo",
-    description: "Visualize todos os seus resultados em tempo real",
+    title: "Dashboard que fecha vendas",
+    description:
+      "Acompanhe metas, funil e desempenho por vendedor em tempo real. Decida rápido e foque no que gera receita.",
+    icon: BarChart3,
   },
   {
     src: "/listagem_clientes.png",
     alt: "Listagem de Clientes",
-    title: "Listagem de Clientes",
-    description: "Acesse de qualquer lugar, a qualquer momento",
+    title: "Clientes prontos para comprar",
+    description:
+      "Centralize contatos, histórico e próximos passos. Nunca mais perca um follow-up e aumente suas conversões.",
+    icon: Users,
   },
-  
 ]
 
 export type Feature = {
@@ -124,7 +152,6 @@ export const PRICING_PLANS: PricingPlan[] = [
   },
 ]
 
-
 // Contact configuration
 export const CONTACT_INFO = {
   phoneDisplay: "(87) 99135-8619",
@@ -135,3 +162,4 @@ export const CONTACT_INFO = {
 
 // Corporate access
 export const CORPORATE_ACCESS_URL = "https://convertocorp.vercel.app"
+
