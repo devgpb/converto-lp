@@ -23,6 +23,8 @@ interface Plan {
   maxSeats?: number
 }
 
+const TRIAL_DAYS = Number(process.env.NEXT_PUBLIC_TRIAL_DAYS ?? 7)
+
 const plans: Plan[] = [
   {
     id: "starter",
@@ -290,10 +292,14 @@ export function CheckoutForm() {
 
                 <div className="bg-accent/10 p-4 rounded-lg">
                   <div className="flex items-center gap-2 text-accent font-medium mb-2">
-                    <Shield className="w-4 h-4" />7 dias grátis
+                    <Shield className="w-4 h-4" />
+                    {TRIAL_DAYS} dias grátis
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    Você não será cobrado nos primeiros 7 dias. Cancele a qualquer momento.
+                    Você não será cobrado nos primeiros {TRIAL_DAYS} dias. Cancele a qualquer momento.
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    Após o período de teste as cobranças iniciam automaticamente com base no resumo acima.
                   </p>
                 </div>
               </div>
