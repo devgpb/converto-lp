@@ -18,20 +18,18 @@ export default function Hero() {
             variant="secondary"
             className={`mb-6 transition-all duration-1000 ${isVisible ? "animate-bounce" : "opacity-0"} bg-primary/10 text-primary border-primary/20`}
           >
-            Novo: Integração com WhatsApp disponível
+            Funciona direto no WhatsApp — sem trocar de sistema
           </Badge>
 
           <h1 className={`text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 transition-all duration-1000 delay-200 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}>
-            Organize Sua Equipe de Vendas e
+            O problema não é falta de lead.
             <span className="text-primary block mt-2 bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-              Controle Cada Resultado
+              É falta de controle das negociações.
             </span>
           </h1>
 
           <p className={`text-xl text-muted-foreground mb-8 max-w-3xl mx-auto transition-all duration-1000 delay-400 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}>
-            A ferramenta poderosa que vai finalmente organizar sua equipe de vendas e te manter de olho nos resultados
-            sem perder nenhum contato. Aumente suas vendas em até 300% com
-            <strong className="text-primary"> controle total do seu pipeline.</strong>
+            Você vende pelo WhatsApp todos os dias, mas não sabe quantos clientes estão em negociação, quem está esperando retorno ou onde o dinheiro escapa. O Converto organiza tudo isso dentro do próprio WhatsApp, sem implantação complexa nem treinamento técnico.
           </p>
 
           <div className={`flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 transition-all duration-1000 delay-600 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}>
@@ -40,7 +38,7 @@ export default function Hero() {
               className="bg-primary hover:bg-primary/90 text-lg px-10 py-6 shadow-2xl hover:shadow-primary/25 transition-all duration-300 hover:scale-105"
               onClick={() => scrollToSection("precos")}
             >
-              Comprar Agora
+              Começar grátis por 7 dias
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </div>
@@ -48,15 +46,15 @@ export default function Hero() {
           <div className={`grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl mx-auto transition-all duration-1000 delay-800 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}>
             <div className="flex items-center justify-center p-4 bg-muted/30 rounded-lg">
               <CheckCircle className="h-5 w-5 text-primary mr-2" />
-              <div className="text-sm text-muted-foreground">Teste sem cartão</div>
+              <div className="text-sm text-muted-foreground">Sem abandonar o WhatsApp</div>
             </div>
             <div className="flex items-center justify-center p-4 bg-muted/30 rounded-lg">
               <CheckCircle className="h-5 w-5 text-primary mr-2" />
-              <div className="text-sm text-muted-foreground">Suporte 24/7</div>
+              <div className="text-sm text-muted-foreground">Configuração em minutos</div>
             </div>
             <div className="flex items-center justify-center p-4 bg-muted/30 rounded-lg">
               <CheckCircle className="h-5 w-5 text-primary mr-2" />
-              <div className="text-sm text-muted-foreground">Implementação rápida</div>
+              <div className="text-sm text-muted-foreground">Mensalidade acessível</div>
             </div>
           </div>
         </div>

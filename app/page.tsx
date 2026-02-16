@@ -37,7 +37,7 @@ export default function LandingPage() {
             operatingSystem: 'Web',
             offers: { '@type': 'Offer', price: '0', priceCurrency: 'BRL' },
             description:
-              'CRM integrado ao WhatsApp com extensão em sidebar para anotações de contatos, eventos e sincronização de dados de vendas.',
+              'Sistema de gestão comercial simples para pequenas empresas que vendem pelo WhatsApp. Organiza negociações, follow-ups e histórico direto no WhatsApp, sem implantação complexa.',
             url: process.env.NEXT_PUBLIC_SITE_URL || 'https://converto-gilt.vercel.app',
           }),
         }}

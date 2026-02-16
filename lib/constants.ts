@@ -12,9 +12,9 @@ export const GALLERY_IMAGES: GalleryImage[] = [
   {
     src: "/ext_whatss.png",
     alt: "Extensão para WhatsApp em tempo real",
-    title: "WhatsApp conectado ao seu CRM",
+    title: "WhatsApp conectado ao Converto",
     description:
-      "Envie e leia mensagens com contexto do cliente sem sair do WhatsApp Web. Ganhe velocidade e padronize seu atendimento.",
+      "Você continua atendendo no WhatsApp Web, mas agora cada conversa tem etapa, dono e histórico sem abrir outro sistema.",
     icon: Zap,
   },
   {
@@ -29,24 +29,21 @@ export const GALLERY_IMAGES: GalleryImage[] = [
     src: "/ligacoes.png",
     alt: "Faça lista de clientes para contato com um clique",
     title: "Listas inteligentes de contato",
-    description:
-      "Organize filas de ligação e follow-up automático. Concentre sua equipe em quem tem intenção de compra.",
+    description: "Monte filas de retorno e follow-up com um clique. Os vendedores sabem exatamente a próxima ligação.",
     icon: Target,
   },
   {
     src: "/crm-sales-dashboard.png",
     alt: "Dashboard de Vendas do Converto",
     title: "Dashboard que fecha vendas",
-    description:
-      "Acompanhe metas, funil e desempenho por vendedor em tempo real. Decida rápido e foque no que gera receita.",
+    description: "Quantos clientes em cada etapa, por vendedor e por origem. Visão simples para cobrar retorno e prever receita.",
     icon: BarChart3,
   },
   {
     src: "/listagem_clientes.png",
     alt: "Listagem de Clientes",
     title: "Clientes prontos para comprar",
-    description:
-      "Centralize contatos, histórico e próximos passos. Nunca mais perca um follow-up e aumente suas conversões.",
+    description: "Histórico, valor combinado e próximos passos ficam guardados no contato. Mesmo se trocar de vendedor, nada se perde.",
     icon: Users,
   },
 ]
@@ -61,45 +58,39 @@ export type Feature = {
 export const FEATURES: Feature[] = [
   {
     icon: Calendar,
-    title: "Organização Total da Agenda",
-    description:
-      "Mantenha toda sua equipe sincronizada com agendas inteligentes que evitam conflitos e otimizam cada horário para máxima produtividade",
-    highlight: "Zero conflitos",
+    title: "Agenda com follow-up certo",
+    description: "Lembretes prontos no WhatsApp para retornar no dia certo. Sem cliente esquecido.",
+    highlight: "Retorno pontual",
   },
   {
     icon: Users,
-    title: "Controle Completo da Equipe",
-    description:
-      "Acompanhe cada vendedor, monitore performance em tempo real e identifique exatamente onde estão as oportunidades de melhoria",
-    highlight: "Visão 360º",
+    title: "Controle simples da equipe",
+    description: "Veja quem está cuidando de cada conversa e cobre retorno com base em dados, não em memória.",
+    highlight: "Responsáveis claros",
   },
   {
     icon: BarChart3,
-    title: "Resultados Sempre à Vista",
-    description:
-      "Dashboards que mostram exatamente como está sua operação: vendas, conversões, pipeline e performance individual de cada vendedor",
-    highlight: "Controle total",
+    title: "Indicadores sem planilha",
+    description: "Visão rápida de quantos clientes por etapa e por vendedor. Previsibilidade mesmo com time pequeno.",
+    highlight: "Carteira visível",
   },
   {
     icon: Target,
-    title: "Nenhum Contato Perdido",
-    description:
-      "Sistema inteligente que garante follow-up automático, lembretes precisos e acompanhamento de cada lead até o fechamento",
-    highlight: "Zero perda",
+    title: "Zero clientes perdidos",
+    description: "Alertas automáticos mostram quem precisa de contato hoje. O time não esquece mais ninguém.",
+    highlight: "Follow-up certo",
   },
   {
     icon: Shield,
-    title: "Dados Sempre Seguros",
-    description:
-      "Toda informação da sua equipe protegida com segurança avançada, backup automático e acesso controlado por perfis",
-    highlight: "100% seguro",
+    title: "Histórico guardado",
+    description: "Notas e valores ficam salvos por cliente, protegidos mesmo que o celular ou vendedor mude.",
+    highlight: "Nada se perde",
   },
   {
     icon: Zap,
-    title: "Integração com Tudo",
-    description:
-      "Conecte todas as ferramentas que sua equipe já usa: WhatsApp, email, calendários e mais de 500 integrações disponíveis",
-    highlight: "500+ apps",
+    title: "Rápido de colocar de pé",
+    description: "Funciona direto no WhatsApp. Instalação em minutos e mensalidade acessível para empresas locais.",
+    highlight: "Comece hoje",
   },
 ]
 
@@ -116,38 +107,34 @@ export type PricingPlan = {
 
 export const PRICING_PLANS: PricingPlan[] = [
   {
-    name: "Plano Básico",
-    description: "Ideal para pequenas empresas",
-    price: "R$ 97",
+    name: "Operação Essencial",
+    description: "Para 1 a 2 pessoas vendendo no WhatsApp",
+    price: "R$ 79",
     period: "/mês",
-    roiNote: "ROI médio de 400% no primeiro mês",
-    ctaLabel: "Começar Agora",
+    roiNote: "Controle básico sem complexidade",
+    ctaLabel: "Começar em minutos",
     features: [
-      "Até 1.000 contatos no CRM",
-      "Agendamento inteligente ilimitado",
-      "Automações básicas de follow-up",
-      "Relatórios essenciais em tempo real",
-      "Integração WhatsApp + Email",
-      "Suporte por email (24h)",
+      "Kanban de negociações no WhatsApp",
+      "Lembretes de follow-up diários",
+      "Histórico por cliente",
+      "Dashboard simples da carteira",
+      "Suporte por chat",
     ],
   },
   {
-    name: "Plano Premium",
-    description: "Para empresas que querem dominar",
-    price: "R$ 197",
+    name: "Equipe Enxuta",
+    description: "Para 3 a 5 vendedores",
+    price: "R$ 129",
     period: "/mês",
-    roiNote: "ROI médio de 800% no primeiro mês",
-    ctaLabel: "Começar Agora",
+    roiNote: "Controle por vendedor e etapas personalizadas",
+    ctaLabel: "Organizar meu time",
     featured: true,
     features: [
-      "Contatos ilimitados no CRM",
-      "IA avançada para scoring de leads",
-      "Automações ilimitadas + sequências personalizadas",
-      "Analytics preditivo com dashboards avançados",
-      "500+ integrações disponíveis",
-      "API completa para customizações",
-      "Suporte VIP 24/7 + gerente dedicado",
-      "Treinamento personalizado + consultoria",
+      "Tudo do plano Essencial",
+      "Etapas e motivos de perda configuráveis",
+      "Responsáveis por carteira e cobranças automáticas",
+      "Alertas por vendedor e por etapa",
+      "Suporte prioritário",
     ],
   },
 ]
@@ -162,4 +149,3 @@ export const CONTACT_INFO = {
 
 // Corporate access
 export const CORPORATE_ACCESS_URL = "https://convertocorp.vercel.app"
-

@@ -36,7 +36,6 @@ const plans: Plan[] = [
       "Colaboração em equipe",
       "Relatórios avançados",
       "Suporte prioritário",
-      "Integrações premium",
     ],
   },
   {
@@ -73,7 +72,7 @@ export function PricingPlans() {
   const router = useRouter()
 
   const handleGetStarted = () => {
-    // Durante o trial de 7 dias não pedimos cartão; cobrança só após confirmação do cliente.
+    // Trial de 7 dias com cobrança iniciando após confirmação do cliente.
     router.push("/cadastro")
   }
 
@@ -84,10 +83,10 @@ export function PricingPlans() {
           <Sparkles className="w-4 h-4" />7 dias grátis
         </div>
         <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4 text-balance">
-          Escolha o plano ideal para seu negócio
+          Mensalidade acessível, sem implantação
         </h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-balance">
-          O Converto custa R$0 na primeira semana. Veja os planos e comece sua transformação digital hoje mesmo.
+          Ative o trial em minutos e veja sua operação organizada já na primeira semana. Escolha o plano que cabe no seu time.
         </p>
       </div>
 
@@ -134,9 +133,9 @@ export function PricingPlans() {
           size="lg"
           className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 text-lg font-semibold"
         >
-          Começar agora - Grátis por 7 dias (sem cartão)
+          Começar agora - Grátis por 7 dias
         </Button>
-        <p className="text-sm text-muted-foreground mt-4">Sem cartão na avaliação • Cancele quando quiser • Suporte incluído</p>
+        <p className="text-sm text-muted-foreground mt-4">Cobrança após 7 dias • Cancele quando quiser • Suporte incluído</p>
       </div>
     </div>
   )

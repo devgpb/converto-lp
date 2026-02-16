@@ -12,35 +12,35 @@ export default function ConvertoFeatures() {
   const features = [
     {
       icon: <Chrome className="w-8 h-8" />,
-      title: "Extensão Inteligente",
-      subtitle: "Sidebar no WhatsApp",
+      title: "Funil organizado no WhatsApp",
+      subtitle: "Etapas visuais sem trocar de app",
       description:
-        "Transforme seu WhatsApp em uma central de vendas com nossa extensão que adiciona uma sidebar inteligente para cada contato.",
-      benefits: ["Instalação em 1 clique", "Interface nativa", "Sincronização automática"],
+        "Cada conversa vira um cartão com etapa de venda. Arraste entre colunas como 'Aguardando resposta', 'Proposta enviada' ou 'Fechamento', direto no WhatsApp Web.",
+      benefits: ["Zero implantação complexa", "Acompanhe por vendedor", "Nada de planilhas paralelas"],
       color: "from-emerald-500 to-teal-500",
     },
     {
       icon: <Database className="w-8 h-8" />,
-      title: "Dados Organizados",
-      subtitle: "Anotações Inteligentes",
-      description: "Guarde informações importantes de cada cliente com sistema de permissões e organização automática.",
-      benefits: ["Histórico completo", "Busca avançada", "Backup automático"],
+      title: "Histórico que não se perde",
+      subtitle: "Anotações fixadas na conversa",
+      description: "Registre decisões, valores e próximos passos sem sair do chat. Tudo fica salvo por cliente, acessível para o dono e para o time.",
+      benefits: ["Contexto único por contato", "Permissões simples", "Nada some quando o vendedor troca de celular"],
       color: "from-blue-500 to-cyan-500",
     },
     {
       icon: <Calendar className="w-8 h-8" />,
-      title: "Eventos & Lembretes",
-      subtitle: "Nunca Perca um Follow-up",
-      description: "Marque eventos importantes que aparecem diretamente no menu do WhatsApp para cada contato.",
-      benefits: ["Lembretes automáticos", "Agenda integrada", "Notificações smart"],
+      title: "Alertas e follow-ups automáticos",
+      subtitle: "Cliente certo, hora certa",
+      description: "O Converto avisa quem está esperando retorno e quando reabrir a negociação. Lembretes caem na própria lista do WhatsApp.",
+      benefits: ["Menos cliente esquecido", "Follow-up pontual", "Avisos diários claros"],
       color: "from-purple-500 to-pink-500",
     },
     {
       icon: <BarChart3 className="w-8 h-8" />,
-      title: "Relatórios Corporativos",
-      subtitle: "Visão 360° do Negócio",
-      description: "Sistema completo de relatórios, filtragem e acompanhamento em tempo real de cada cliente.",
-      benefits: ["Dashboards em tempo real", "Métricas de conversão"],
+      title: "Visão da carteira em minutos",
+      subtitle: "Controle do dono, sem planilha",
+      description: "Veja quantos clientes estão em negociação, por etapa e por vendedor. Enxergue onde está perdendo dinheiro e cobre retorno com clareza.",
+      benefits: ["Previsibilidade de receita", "Indicadores simples", "Foco no que traz dinheiro"],
       color: "from-orange-500 to-red-500",
     },
   ]
@@ -65,14 +65,13 @@ export default function ConvertoFeatures() {
         <div className="text-center mb-16 animate-fade-in-up">
           <Badge className="mb-4 bg-primary text-primary-foreground border-primary/20 hover:bg-primary/90">
             <Zap className="w-4 h-4 mr-2" />
-            CRM + WhatsApp = Vendas Turbinadas
+            Gestão comercial simples para quem vende no WhatsApp
           </Badge>
           <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text text-balance">
-            Quais são as vantagens do Converto?
+            Converto é o jeito mais fácil de controlar vendas sem sair do WhatsApp
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-pretty">
-            A única solução que integra perfeitamente seu WhatsApp com um CRM poderoso, sem complicação e com resultados
-            imediatos.
+            Ele não substitui o WhatsApp: ele coloca processo, histórico e cobrança de follow-up dentro dele. Simples, acessível e feito para pequenas empresas locais.
           </p>
         </div>
 

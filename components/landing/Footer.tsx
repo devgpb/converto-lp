@@ -34,21 +34,28 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4">Empresa</h4>
+            <h4 className="font-semibold mb-4">Produto</h4>
             <ul className="space-y-2 text-muted-foreground">
-              <li><a href="#galeria" className="hover:text-foreground transition-colors">Sobre</a></li>
-              <li><a href="#recursos" className="hover:text-foreground transition-colors">Cases de Sucesso</a></li>
-              <li><a href="#beneficios" className="hover:text-foreground transition-colors">Carreiras</a></li>
-              <li><a href="#faq" className="hover:text-foreground transition-colors">Contato</a></li>
+              <li><a href="#recursos" className="hover:text-foreground transition-colors">Recursos</a></li>
+              <li><a href="#beneficios" className="hover:text-foreground transition-colors">Benefícios</a></li>
+              <li><a href="#faq" className="hover:text-foreground transition-colors">FAQ</a></li>
             </ul>
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4">Suporte</h4>
+            <h4 className="font-semibold mb-4">Suporte & Legal</h4>
             <ul className="space-y-2 text-muted-foreground">
-              <li><a href="#faq" className="hover:text-foreground transition-colors">Central de Ajuda</a></li>
-              <li><a href="#beneficios" className="hover:text-foreground transition-colors">Treinamentos</a></li>
-              <li><a href="#precos" className="hover:text-foreground transition-colors">Status do Sistema</a></li>
+              <li>
+                <a
+                  href="https://www.youtube.com/@ConvertoCRM"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-foreground transition-colors"
+                >
+                  Treinamentos em vídeo
+                </a>
+              </li>
+              <li><a href="#faq" className="hover:text-foreground transition-colors">Suporte e contato</a></li>
               <li><a href="/politica-de-privacidade" className="hover:text-foreground transition-colors">Política de Privacidade</a></li>
             </ul>
           </div>

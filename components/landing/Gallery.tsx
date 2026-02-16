@@ -37,7 +37,7 @@ export default function Gallery() {
         <div className="text-center mb-16">
           <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-6">Veja o Converto em Ação</h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Interface intuitiva que sua equipe vai amar usar. Disponível em desktop, tablet e mobile.
+            Conversas viram processo: etapas claras, alertas de retorno e carteira visível. Tudo no canal que você já usa.
           </p>
         </div>
 

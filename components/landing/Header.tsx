@@ -29,7 +29,7 @@ export default function Header() {
               <a href={CORPORATE_ACCESS_URL} target="_blank" rel="noopener noreferrer">Acesso Corporativo</a>
             </Button>
             <Button size="sm" className="bg-primary hover:bg-primary/90" onClick={() => scrollToSection("precos")}>
-              Comprar Agora
+              Testar grátis
             </Button>
           </nav>
 
@@ -53,7 +53,7 @@ export default function Header() {
                 </div>
                 <div className="pt-4">
                   <Button size="sm" className="bg-primary hover:bg-primary/90 w-full" onClick={() => { scrollToSection("precos"); setIsMenuOpen(false) }}>
-                    Comprar Agora
+                    Testar grátis
                   </Button>
                 </div>
               </nav>
