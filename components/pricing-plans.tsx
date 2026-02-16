@@ -73,6 +73,7 @@ export function PricingPlans() {
   const router = useRouter()
 
   const handleGetStarted = () => {
+    // Durante o trial de 7 dias não pedimos cartão; cobrança só após confirmação do cliente.
     router.push("/cadastro")
   }
 
@@ -133,9 +134,9 @@ export function PricingPlans() {
           size="lg"
           className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 text-lg font-semibold"
         >
-          Começar agora - Grátis por 7 dias
+          Começar agora - Grátis por 7 dias (sem cartão)
         </Button>
-        <p className="text-sm text-muted-foreground mt-4">Sem compromisso • Cancele quando quiser • Suporte incluído</p>
+        <p className="text-sm text-muted-foreground mt-4">Sem cartão na avaliação • Cancele quando quiser • Suporte incluído</p>
       </div>
     </div>
   )

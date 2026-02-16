@@ -20,15 +20,17 @@ export default function Header() {
           </div>
 
           <nav className="hidden md:flex items-center space-x-6">
-            <button onClick={() => scrollToSection("recursos")} className="text-muted-foreground hover:text-foreground transition-colors">Recursos</button>
             <button onClick={() => scrollToSection("galeria")} className="text-muted-foreground hover:text-foreground transition-colors">Galeria</button>
-            <button onClick={() => scrollToSection("recursos")} className="text-muted-foreground hover:text-foreground transition-colors">Benefícios</button>
+            <button onClick={() => scrollToSection("beneficios")} className="text-muted-foreground hover:text-foreground transition-colors">Benefícios</button>
+            <button onClick={() => scrollToSection("recursos")} className="text-muted-foreground hover:text-foreground transition-colors">Recursos</button>
             <button onClick={() => scrollToSection("precos")} className="text-muted-foreground hover:text-foreground transition-colors">Preços</button>
             <button onClick={() => scrollToSection("faq")} className="text-muted-foreground hover:text-foreground transition-colors">FAQ</button>
             <Button variant="outline" size="sm" asChild>
               <a href={CORPORATE_ACCESS_URL} target="_blank" rel="noopener noreferrer">Acesso Corporativo</a>
             </Button>
-            <Button size="sm" className="bg-primary hover:bg-primary/90">Comprar Agora</Button>
+            <Button size="sm" className="bg-primary hover:bg-primary/90" onClick={() => scrollToSection("precos")}>
+              Comprar Agora
+            </Button>
           </nav>
 
           <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -39,9 +41,9 @@ export default function Header() {
           {isMenuOpen && (
             <div className="md:hidden py-4 border-t animate-fade-in">
               <nav className="flex flex-col space-y-4">
-                <button onClick={() => { scrollToSection("recursos"); setIsMenuOpen(false) }} className="text-muted-foreground hover:text-foreground transition-colors text-left">Recursos</button>
                 <button onClick={() => { scrollToSection("galeria"); setIsMenuOpen(false) }} className="text-muted-foreground hover:text-foreground transition-colors text-left">Galeria</button>
-                <button onClick={() => { scrollToSection("recursos"); setIsMenuOpen(false) }} className="text-muted-foreground hover:text-foreground transition-colors text-left">Benefícios</button>
+                <button onClick={() => { scrollToSection("beneficios"); setIsMenuOpen(false) }} className="text-muted-foreground hover:text-foreground transition-colors text-left">Benefícios</button>
+                <button onClick={() => { scrollToSection("recursos"); setIsMenuOpen(false) }} className="text-muted-foreground hover:text-foreground transition-colors text-left">Recursos</button>
                 <button onClick={() => { scrollToSection("precos"); setIsMenuOpen(false) }} className="text-muted-foreground hover:text-foreground transition-colors text-left">Preços</button>
                 <button onClick={() => { scrollToSection("faq"); setIsMenuOpen(false) }} className="text-muted-foreground hover:text-foreground transition-colors text-left">FAQ</button>
                 <div className="pt-2">
@@ -50,7 +52,9 @@ export default function Header() {
                   </Button>
                 </div>
                 <div className="pt-4">
-                  <Button size="sm" className="bg-primary hover:bg-primary/90 w-full">Comprar Agora</Button>
+                  <Button size="sm" className="bg-primary hover:bg-primary/90 w-full" onClick={() => { scrollToSection("precos"); setIsMenuOpen(false) }}>
+                    Comprar Agora
+                  </Button>
                 </div>
               </nav>
             </div>

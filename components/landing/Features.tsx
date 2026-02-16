@@ -8,7 +8,7 @@ export default function Features() {
   const features = FEATURES
 
   return (
-    <section id="recursos" className="py-20">
+    <section id="recursos" className="py-5">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-6">Organize, Controle e Nunca Mais Perca Uma Venda</h2>
@@ -18,7 +18,7 @@ export default function Features() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
             <Card key={index} className="hover:shadow-xl transition-all duration-500 hover:scale-105 animate-fade-in-up" style={{ animationDelay: `${index * 200}ms` }}>
               <CardContent className="pt-6">
@@ -35,7 +35,7 @@ export default function Features() {
               </CardContent>
             </Card>
           ))}
-        </div>
+        </div> */}
       </div>
     </section>
   )

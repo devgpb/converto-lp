@@ -36,20 +36,20 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-4">Empresa</h4>
             <ul className="space-y-2 text-muted-foreground">
-              <li><a href="#" className="hover:text-foreground transition-colors">Sobre</a></li>
-              <li><a href="#" className="hover:text-foreground transition-colors">Cases de Sucesso</a></li>
-              <li><a href="#" className="hover:text-foreground transition-colors">Carreiras</a></li>
-              <li><a href="#" className="hover:text-foreground transition-colors">Contato</a></li>
+              <li><a href="#galeria" className="hover:text-foreground transition-colors">Sobre</a></li>
+              <li><a href="#recursos" className="hover:text-foreground transition-colors">Cases de Sucesso</a></li>
+              <li><a href="#beneficios" className="hover:text-foreground transition-colors">Carreiras</a></li>
+              <li><a href="#faq" className="hover:text-foreground transition-colors">Contato</a></li>
             </ul>
           </div>
 
           <div>
             <h4 className="font-semibold mb-4">Suporte</h4>
             <ul className="space-y-2 text-muted-foreground">
-              <li><a href="#" className="hover:text-foreground transition-colors">Central de Ajuda</a></li>
-              <li><a href="#" className="hover:text-foreground transition-colors">Treinamentos</a></li>
-              <li><a href="#" className="hover:text-foreground transition-colors">Status do Sistema</a></li>
-              <li><a href="#" className="hover:text-foreground transition-colors">PolÃ­tica de Privacidade</a></li>
+              <li><a href="#faq" className="hover:text-foreground transition-colors">Central de Ajuda</a></li>
+              <li><a href="#beneficios" className="hover:text-foreground transition-colors">Treinamentos</a></li>
+              <li><a href="#precos" className="hover:text-foreground transition-colors">Status do Sistema</a></li>
+              <li><a href="/politica-de-privacidade" className="hover:text-foreground transition-colors">Política de Privacidade</a></li>
             </ul>
           </div>
         </div>

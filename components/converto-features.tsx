@@ -46,7 +46,7 @@ export default function ConvertoFeatures() {
   ]
 
   return (
-    <section className="w-full py-20 px-4 bg-gradient-to-br from-background via-muted/30 to-background relative overflow-hidden">
+    <section id="beneficios" className="w-full py-20 px-4 bg-gradient-to-br from-background via-muted/30 to-background relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="bg-parallax-element bg-size-lg animate-float-slow">

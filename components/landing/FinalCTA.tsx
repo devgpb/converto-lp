@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import { scrollToSection } from "@/lib/utils"
+import { CONTACT_INFO } from "@/lib/constants"
 
 export default function FinalCTA() {
   return (
@@ -28,8 +29,11 @@ export default function FinalCTA() {
             size="lg"
             variant="outline"
             className="text-lg px-12 py-6 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary bg-transparent transition-all duration-300"
+            asChild
           >
-            Falar com Especialista
+            <a href={CONTACT_INFO.whatsappUrl} target="_blank" rel="noopener noreferrer">
+              Falar com Especialista
+            </a>
           </Button>
         </div>
 

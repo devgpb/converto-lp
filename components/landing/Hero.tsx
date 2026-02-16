@@ -48,7 +48,7 @@ export default function Hero() {
           <div className={`grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl mx-auto transition-all duration-1000 delay-800 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}>
             <div className="flex items-center justify-center p-4 bg-muted/30 rounded-lg">
               <CheckCircle className="h-5 w-5 text-primary mr-2" />
-              <div className="text-sm text-muted-foreground">Sem cartão de crédito</div>
+              <div className="text-sm text-muted-foreground">Teste sem cartão</div>
             </div>
             <div className="flex items-center justify-center p-4 bg-muted/30 rounded-lg">
               <CheckCircle className="h-5 w-5 text-primary mr-2" />
