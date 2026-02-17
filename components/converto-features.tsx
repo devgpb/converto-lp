@@ -50,7 +50,10 @@ export default function ConvertoFeatures() {
   ]
 
   return (
-    <section id="beneficios" className="w-full py-20 px-4 bg-gradient-to-br from-background via-muted/30 to-background relative overflow-hidden">
+    <section
+      id="beneficios"
+      className="w-full px-4 py-16 sm:py-20 bg-gradient-to-br from-background via-muted/30 to-background relative overflow-hidden"
+    >
       {/* Background Elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="bg-parallax-element bg-size-lg animate-float-slow">
@@ -66,15 +69,15 @@ export default function ConvertoFeatures() {
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}
-        <div className="text-center mb-16 animate-fade-in-up">
+        <div className="text-center mb-12 sm:mb-16 animate-fade-in-up">
           <Badge className="mb-4 bg-primary text-primary-foreground border-primary/20 hover:bg-primary/90">
             <Zap className="w-4 h-4 mr-2" />
             Gestão comercial simples para quem vende no WhatsApp
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text text-balance">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 gradient-text text-balance leading-tight">
             Converto é o jeito mais fácil de controlar vendas sem sair do WhatsApp
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-pretty">
+          <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto text-pretty">
             Ele não substitui o WhatsApp: ele coloca processo, histórico e cobrança de follow-up dentro dele. Simples, acessível e feito para pequenas empresas locais.
           </p>
         </div>
@@ -90,22 +93,30 @@ export default function ConvertoFeatures() {
                 }`}
                 onClick={() => setActiveFeature(index)}
               >
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div className={`p-3 rounded-xl bg-gradient-to-r ${feature.color} text-white feature-icon`}>
+                <CardContent className="p-5 sm:p-6">
+                  <div className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-5">
+                    <div
+                      className={`p-3 rounded-xl bg-gradient-to-r ${feature.color} text-white feature-icon self-start sm:self-auto`}
+                    >
                       {feature.icon}
                     </div>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <h3 className="text-xl font-semibold text-foreground">{feature.title}</h3>
-                        <Badge variant="secondary" className="text-xs">
+                    <div className="flex-1 space-y-3">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
+                        <h3 className="text-lg sm:text-xl font-semibold text-foreground leading-snug">{feature.title}</h3>
+                        <Badge variant="secondary" className="text-[11px] sm:text-xs w-fit">
                           {feature.subtitle}
                         </Badge>
                       </div>
-                      <p className="text-muted-foreground mb-4 text-pretty">{feature.description}</p>
+                      <p className="text-sm sm:text-base text-muted-foreground text-pretty leading-relaxed">
+                        {feature.description}
+                      </p>
                       <div className="flex flex-wrap gap-2">
                         {feature.benefits.map((benefit, idx) => (
-                          <Badge key={idx} variant="outline" className="text-xs">
+                          <Badge
+                            key={idx}
+                            variant="outline"
+                            className="text-[11px] sm:text-xs font-medium leading-tight py-1 px-2 rounded-full"
+                          >
                             <CheckCircle className="w-3 h-3 mr-1" />
                             {benefit}
                           </Badge>
