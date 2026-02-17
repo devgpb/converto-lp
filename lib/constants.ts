@@ -14,7 +14,7 @@ export const GALLERY_IMAGES: GalleryImage[] = [
     alt: "Extensão para WhatsApp em tempo real",
     title: "WhatsApp conectado ao Converto",
     description:
-      "Você continua atendendo no WhatsApp Web, mas agora cada conversa tem etapa, dono e histórico sem abrir outro sistema.",
+      "Você continua atendendo no WhatsApp Web, mas agora cada conversa tem etapa, gestor e histórico sem abrir outro sistema.",
     icon: Zap,
   },
   {

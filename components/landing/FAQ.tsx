@@ -44,7 +44,7 @@ export default function FAQ() {
             <AccordionItem value="item-5" className="border rounded-lg px-6 hover:shadow-lg transition-all duration-300">
               <AccordionTrigger className="text-left text-lg font-semibold">Como ficam os dados dos clientes?</AccordionTrigger>
               <AccordionContent className="text-base leading-relaxed">
-                Histórico, valores e anotações ficam salvos por cliente, com backup e acesso controlado. Se um vendedor sair, o dono continua com todo o contexto.
+                Histórico, valores e anotações ficam salvos por cliente, com backup e acesso controlado. Se um vendedor sair, o gestor continua com todo o contexto.
               </AccordionContent>
             </AccordionItem>
 

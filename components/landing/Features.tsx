@@ -1,34 +1,35 @@
 "use client"
 
 import { Card, CardContent } from "@/components/ui/card"
-import { ListChecks, MessageCircle, Timer, Wallet } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { ArrowRight, BarChart3, CheckSquare, MessageCircle, Timer } from "lucide-react"
+import { scrollToSection } from "@/lib/utils"
 
 export default function Features() {
   const features = [
     {
       icon: MessageCircle,
-      title: "Conversas espalhadas, dinheiro perdido",
-      description:
-        "O dono não enxerga quantos clientes estão ativos e quais aguardam resposta. Cada chat esquecido vira venda perdida.",
-      result: "Converto transforma cada conversa em um cartão com dono, etapa e próxima ação.",
+      title: "Nunca mais esqueça um cliente",
+      description: "Lembretes automáticos no próprio WhatsApp avisam quem precisa de retorno antes de sumir.",
+      result: "Cada conversa vira um cartão com responsável, etapa e próxima ação.",
     },
     {
       icon: Timer,
-      title: "Follow-up atrasado",
-      description: "Vendedor promete retorno e esquece. O cliente some, o dia segue e ninguém sabe onde travou.",
-      result: "Alertas diários no próprio WhatsApp mostram quem precisa de retorno hoje.",
+      title: "Follow-up no dia certo",
+      description: "Agenda diária pronta com quem deve ser cobrado hoje e por qual etapa está.",
+      result: "Alertas diários evitam que pedidos fiquem parados ou atrasem decisões.",
     },
     {
-      icon: ListChecks,
-      title: "Equipe sem processo",
-      description: "Sem etapas claras, cada um atende de um jeito. Fica impossível cobrar padrão e prever resultados.",
-      result: "Funil visual dentro do WhatsApp cria um passo a passo simples que qualquer vendedor segue.",
+      icon: CheckSquare,
+      title: "Equipe organizada e sob controle",
+      description: "Etapas simples que todo vendedor segue. O gestor enxerga quem está com cada negociação.",
+      result: "Funil visual dentro do WhatsApp mantém padrão e facilita a cobrança de resultado.",
     },
     {
-      icon: Wallet,
-      title: "Planilhas e CRMs caros não colam",
-      description: "Implantação demorada, custo alto e ninguém usa. O problema volta em poucas semanas.",
-      result: "O Converto roda no canal que você já usa, com mensalidade baixa e setup em minutos.",
+      icon: BarChart3,
+      title: "Veja exatamente quantos leads convertem",
+      description: "Visão por etapa e por vendedor em minutos, sem planilha paralela.",
+      result: "Previsibilidade simples: quantos entram, quantos avançam e onde está travando.",
     },
   ]
 
@@ -38,8 +39,7 @@ export default function Features() {
         <div className="text-center mb-16">
           <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-6">Para quem vende no WhatsApp e precisa de controle</h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Não é sobre ter mais leads, é sobre saber o que está acontecendo com cada negociação. Estes são os problemas
-            que o Converto resolve logo no primeiro dia.
+            Mais controle, menos cliente esquecido e operação organizada. Estes são os resultados que você enxerga já no primeiro dia.
           </p>
         </div>
 
@@ -60,6 +60,25 @@ export default function Features() {
               </CardContent>
             </Card>
           ))}
+        </div>
+
+        <div className="text-center mt-12 flex flex-col sm:flex-row gap-4 justify-center">
+          <Button
+            size="lg"
+            className="bg-primary text-primary-foreground px-10 py-6 text-lg"
+            onClick={() => scrollToSection("precos")}
+          >
+            Começar grátis agora
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
+          <Button
+            size="lg"
+            variant="outline"
+            className="px-10 py-6 text-lg"
+            onClick={() => scrollToSection("beneficios")}
+          >
+            Ver detalhes dos benefícios
+          </Button>
         </div>
       </div>
     </section>

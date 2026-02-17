@@ -485,11 +485,11 @@ export function RegistrationForm() {
 
         <p className="text-center text-sm text-muted-foreground mt-6">
           Ao continuar, você concorda com nossos{" "}
-          <a href="#" className="text-primary hover:underline">
+          <a href="/termos-de-uso" className="text-primary hover:underline">
             Termos de Uso
           </a>{" "}
           e{" "}
-          <a href="#" className="text-primary hover:underline">
+          <a href="/politica-de-privacidade" className="text-primary hover:underline">
             Política de Privacidade
           </a>
         </p>

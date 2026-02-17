@@ -22,14 +22,14 @@ export default function Hero() {
           </Badge>
 
           <h1 className={`text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 transition-all duration-1000 delay-200 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}>
-            O problema não é falta de lead.
+            Tenha controle real das vendas no WhatsApp
             <span className="text-primary block mt-2 bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-              É falta de controle das negociações.
+              sem pagar por um CRM caro.
             </span>
           </h1>
 
           <p className={`text-xl text-muted-foreground mb-8 max-w-3xl mx-auto transition-all duration-1000 delay-400 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}>
-            Você vende pelo WhatsApp todos os dias, mas não sabe quantos clientes estão em negociação, quem está esperando retorno ou onde o dinheiro escapa. O Converto organiza tudo isso dentro do próprio WhatsApp, sem implantação complexa nem treinamento técnico.
+            Organize conversas, prazos e follow-ups no canal que você já usa. Nada de implantação demorada ou ferramentas complicadas — só visibilidade diária de quem está comprando e quem precisa de retorno.
           </p>
 
           <div className={`flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 transition-all duration-1000 delay-600 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}>
@@ -40,6 +40,14 @@ export default function Hero() {
             >
               Começar grátis por 7 dias
               <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-primary text-primary hover:bg-primary/10 text-lg px-10 py-6"
+              onClick={() => scrollToSection("beneficios")}
+            >
+              Ver como funciona
             </Button>
           </div>
 

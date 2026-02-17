@@ -4,7 +4,8 @@ import { useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { MessageSquare, Users, Calendar, BarChart3, CheckCircle, Zap, Chrome, Database, Bell } from "lucide-react"
+import { MessageSquare, Users, Calendar, BarChart3, Zap, Chrome, Database, CheckCircle } from "lucide-react"
+import { scrollToSection } from "@/lib/utils"
 
 export default function ConvertoFeatures() {
   const [activeFeature, setActiveFeature] = useState(0)
@@ -15,32 +16,35 @@ export default function ConvertoFeatures() {
       title: "Funil organizado no WhatsApp",
       subtitle: "Etapas visuais sem trocar de app",
       description:
-        "Cada conversa vira um cartão com etapa de venda. Arraste entre colunas como 'Aguardando resposta', 'Proposta enviada' ou 'Fechamento', direto no WhatsApp Web.",
-      benefits: ["Zero implantação complexa", "Acompanhe por vendedor", "Nada de planilhas paralelas"],
+        "Cada conversa vira um cartão com etapa de venda. Arraste entre colunas direto no WhatsApp Web e saiba quem cuida de cada cliente.",
+      benefits: ["Ver todas as conversas por etapa", "Responsável claro por cliente", "Nada de cartões esquecidos"],
       color: "from-emerald-500 to-teal-500",
     },
     {
       icon: <Database className="w-8 h-8" />,
       title: "Histórico que não se perde",
       subtitle: "Anotações fixadas na conversa",
-      description: "Registre decisões, valores e próximos passos sem sair do chat. Tudo fica salvo por cliente, acessível para o dono e para o time.",
-      benefits: ["Contexto único por contato", "Permissões simples", "Nada some quando o vendedor troca de celular"],
+      description:
+        "Registre decisões, valores e próximos passos sem sair do chat. O histórico fica salvo por cliente e qualquer vendedor assume sem perder contexto.",
+      benefits: ["Contexto pronto para qualquer vendedor", "Decisões e valores salvos no cliente", "Nada some quando troca de aparelho"],
       color: "from-blue-500 to-cyan-500",
     },
     {
       icon: <Calendar className="w-8 h-8" />,
       title: "Alertas e follow-ups automáticos",
       subtitle: "Cliente certo, hora certa",
-      description: "O Converto avisa quem está esperando retorno e quando reabrir a negociação. Lembretes caem na própria lista do WhatsApp.",
-      benefits: ["Menos cliente esquecido", "Follow-up pontual", "Avisos diários claros"],
+      description:
+        "O Converto avisa quem está esperando retorno e quando reabrir a negociação. Lembretes chegam na própria lista do WhatsApp.",
+      benefits: ["Receba alerta antes do cliente sumir", "Agenda diária de follow-up", "Follow-ups pontuais e rastreáveis"],
       color: "from-purple-500 to-pink-500",
     },
     {
       icon: <BarChart3 className="w-8 h-8" />,
       title: "Visão da carteira em minutos",
-      subtitle: "Controle do dono, sem planilha",
-      description: "Veja quantos clientes estão em negociação, por etapa e por vendedor. Enxergue onde está perdendo dinheiro e cobre retorno com clareza.",
-      benefits: ["Previsibilidade de receita", "Indicadores simples", "Foco no que traz dinheiro"],
+      subtitle: "Controle do gestor, sem planilha",
+      description:
+        "Veja quantos clientes estão em negociação, por etapa e por vendedor. Enxergue gargalos e cobre retorno com clareza.",
+      benefits: ["Total por etapa em minutos", "Gargalos por vendedor", "Cobrança baseada em dados"],
       color: "from-orange-500 to-red-500",
     },
   ]
@@ -77,7 +81,6 @@ export default function ConvertoFeatures() {
 
         {/* Features Grid */}
         <div className="w-full">
-          {/* Feature Cards */}
           <div className="flex flex-col md:flex-row md:flex-wrap gap-4 w-full justify-center">
             {features.map((feature, index) => (
               <Card
@@ -114,10 +117,17 @@ export default function ConvertoFeatures() {
               </Card>
             ))}
           </div>
-         
-        </div>
 
-       
+          <div className="text-center mt-12">
+            <Button
+              size="lg"
+              className="bg-primary text-primary-foreground px-10 py-6 text-lg"
+              onClick={() => scrollToSection("precos")}
+            >
+              Começar grátis por 7 dias
+            </Button>
+          </div>
+        </div>
       </div>
     </section>
   )
