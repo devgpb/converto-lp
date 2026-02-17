@@ -16,7 +16,7 @@ export default function ConvertoFeatures() {
       title: "Funil organizado no WhatsApp",
       subtitle: "Etapas visuais sem trocar de app",
       description:
-        "Cada conversa vira um cartão com etapa de venda. Arraste entre colunas direto no WhatsApp Web e saiba quem cuida de cada cliente.",
+        "Cada conversa vira um cartão com etapa de venda. Arraste entre status direto no WhatsApp Web e saiba quem cuida de cada cliente.",
       benefits: ["Ver todas as conversas por etapa", "Responsável claro por cliente", "Nada de cartões esquecidos"],
       color: "from-emerald-500 to-teal-500",
     },
@@ -34,7 +34,7 @@ export default function ConvertoFeatures() {
       title: "Alertas e follow-ups automáticos",
       subtitle: "Cliente certo, hora certa",
       description:
-        "O Converto avisa quem está esperando retorno e quando reabrir a negociação. Lembretes chegam na própria lista do WhatsApp.",
+        "O Converto avisa quem está esperando retorno. Lembretes chegam na própria lista do WhatsApp.",
       benefits: ["Receba alerta antes do cliente sumir", "Agenda diária de follow-up", "Follow-ups pontuais e rastreáveis"],
       color: "from-purple-500 to-pink-500",
     },
@@ -43,8 +43,8 @@ export default function ConvertoFeatures() {
       title: "Visão da carteira em minutos",
       subtitle: "Controle do gestor, sem planilha",
       description:
-        "Veja quantos clientes estão em negociação, por etapa e por vendedor. Enxergue gargalos e cobre retorno com clareza.",
-      benefits: ["Total por etapa em minutos", "Gargalos por vendedor", "Cobrança baseada em dados"],
+        "Veja quantos clientes estão em negociação, por etapa e por vendedor. Enxergue gargalos e acompanhe com clareza.",
+      benefits: ["Total por etapa em minutos", "Relatórios por vendedor"],
       color: "from-orange-500 to-red-500",
     },
   ]

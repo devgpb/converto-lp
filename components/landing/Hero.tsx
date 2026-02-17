@@ -24,7 +24,7 @@ export default function Hero() {
           <h1 className={`text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 transition-all duration-1000 delay-200 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}>
             Tenha controle real das vendas no WhatsApp
             <span className="text-primary block mt-2 bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-              sem pagar por um CRM caro.
+              sem complicações.
             </span>
           </h1>
 
