@@ -1,35 +1,138 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState, type PointerEvent, type WheelEvent } from "react"
 import Image from "next/image"
-import { ChevronLeft, ChevronRight, X } from "lucide-react"
+import { ChevronLeft, ChevronRight, Minus, Plus, RotateCcw, X } from "lucide-react"
 import { GALLERY_IMAGES } from "@/lib/constants"
+
+const MIN_ZOOM = 1
+const MAX_ZOOM = 4
+const ZOOM_STEP = 0.35
+
+const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value))
+const panLimit = (scale: number) => (scale - 1) * 220
 
 export default function Gallery() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isLightboxOpen, setIsLightboxOpen] = useState(false)
+  const [zoomLevel, setZoomLevel] = useState(1)
+  const [pan, setPan] = useState({ x: 0, y: 0 })
+  const [isPanning, setIsPanning] = useState(false)
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 })
 
   const galleryImages = GALLERY_IMAGES
+  const totalSlides = galleryImages.length
+  const activeImage = galleryImages[currentSlide]
 
-  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % galleryImages.length)
-  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + galleryImages.length) % galleryImages.length)
+  const nextSlide = useCallback(() => {
+    if (!totalSlides) return
+    setCurrentSlide((prev) => (prev + 1) % totalSlides)
+  }, [totalSlides])
+
+  const prevSlide = useCallback(() => {
+    if (!totalSlides) return
+    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides)
+  }, [totalSlides])
+
+  const resetZoom = useCallback(() => {
+    setZoomLevel(MIN_ZOOM)
+    setPan({ x: 0, y: 0 })
+    setIsPanning(false)
+  }, [])
+
+  const applyZoom = useCallback((nextZoom: number) => {
+    const boundedZoom = clamp(nextZoom, MIN_ZOOM, MAX_ZOOM)
+    setZoomLevel(boundedZoom)
+    if (boundedZoom === MIN_ZOOM) {
+      setPan({ x: 0, y: 0 })
+    } else {
+      const limit = panLimit(boundedZoom)
+      setPan((prev) => ({
+        x: clamp(prev.x, -limit, limit),
+        y: clamp(prev.y, -limit, limit),
+      }))
+    }
+  }, [])
+
+  const zoomIn = useCallback(() => applyZoom(zoomLevel + ZOOM_STEP), [applyZoom, zoomLevel])
+  const zoomOut = useCallback(() => applyZoom(zoomLevel - ZOOM_STEP), [applyZoom, zoomLevel])
+
+  const openLightbox = useCallback(() => {
+    setIsLightboxOpen(true)
+    resetZoom()
+  }, [resetZoom])
+
+  const closeLightbox = useCallback(() => {
+    setIsLightboxOpen(false)
+    resetZoom()
+  }, [resetZoom])
+
+  const handleWheelZoom = (e: WheelEvent<HTMLDivElement>) => {
+    e.preventDefault()
+    const delta = e.deltaY < 0 ? ZOOM_STEP : -ZOOM_STEP
+    applyZoom(zoomLevel + delta)
+  }
+
+  const handlePointerDown = (e: PointerEvent<HTMLDivElement>) => {
+    if (zoomLevel <= MIN_ZOOM) return
+    setIsPanning(true)
+    setDragOffset({ x: e.clientX - pan.x, y: e.clientY - pan.y })
+  }
+
+  const handlePointerMove = (e: PointerEvent<HTMLDivElement>) => {
+    if (!isPanning || zoomLevel <= MIN_ZOOM) return
+    const limit = panLimit(zoomLevel)
+    setPan({
+      x: clamp(e.clientX - dragOffset.x, -limit, limit),
+      y: clamp(e.clientY - dragOffset.y, -limit, limit),
+    })
+  }
+
+  const handlePointerUp = () => setIsPanning(false)
+
+  const handleDoubleClick = () => {
+    if (zoomLevel > MIN_ZOOM) {
+      resetZoom()
+      return
+    }
+    applyZoom(2)
+  }
 
   useEffect(() => {
     const interval = setInterval(nextSlide, 10000)
     return () => clearInterval(interval)
-  }, [])
+  }, [nextSlide])
 
   // Keyboard support when lightbox is open
   useEffect(() => {
     if (!isLightboxOpen) return
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setIsLightboxOpen(false)
+      if (e.key === "Escape") closeLightbox()
       if (e.key === "ArrowRight") nextSlide()
       if (e.key === "ArrowLeft") prevSlide()
+      if (e.key === "+") zoomIn()
+      if (e.key === "-") zoomOut()
+      if (e.key === "0") resetZoom()
     }
     window.addEventListener("keydown", onKeyDown)
     return () => window.removeEventListener("keydown", onKeyDown)
+  }, [isLightboxOpen, closeLightbox, nextSlide, prevSlide, resetZoom, zoomIn, zoomOut])
+
+  useEffect(() => {
+    if (!isLightboxOpen) return
+    resetZoom()
+  }, [currentSlide, isLightboxOpen, resetZoom])
+
+  useEffect(() => {
+    if (!isLightboxOpen) return
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+    return () => {
+      document.body.style.overflow = previousOverflow
+    }
   }, [isLightboxOpen])
+
+  if (!totalSlides) return null
 
   return (
     <section id="galeria" className="py-20 bg-muted/10">
@@ -55,7 +158,7 @@ export default function Gallery() {
                     <div key={index} className="w-full flex-shrink-0 relative">
                       <div
                         className="aspect-video relative bg-gradient-to-br from-muted/20 to-muted/40 flex items-center justify-center cursor-zoom-in"
-                        onClick={() => setIsLightboxOpen(true)}
+                        onClick={openLightbox}
                         role="button"
                         aria-label="Abrir imagem em tela cheia"
                       >
@@ -103,11 +206,11 @@ export default function Gallery() {
             <div className="md:col-span-1 mt-6 md:mt-0">
               <div className="bg-white md:bg-transparent rounded-xl md:rounded-none p-6 md:p-0 shadow-sm md:shadow-none">
                 {(() => {
-                  const ActiveIcon = galleryImages[currentSlide]?.icon
+                  const ActiveIcon = activeImage?.icon
                   return ActiveIcon ? <ActiveIcon className="h-8 w-8 text-emerald-500 mb-3" /> : null
                 })()}
-                <h3 className="text-2xl font-bold text-foreground mb-3">{galleryImages[currentSlide]?.title}</h3>
-                <p className="text-muted-foreground text-lg leading-relaxed">{galleryImages[currentSlide]?.description}</p>
+                <h3 className="text-2xl font-bold text-foreground mb-3">{activeImage?.title}</h3>
+                <p className="text-muted-foreground text-lg leading-relaxed">{activeImage?.description}</p>
               </div>
             </div>
           </div>
@@ -139,23 +242,43 @@ export default function Gallery() {
       {/* Lightbox Fullscreen */}
       {isLightboxOpen && (
         <div
-          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
-          onClick={() => setIsLightboxOpen(false)}
+          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6"
+          onClick={closeLightbox}
           role="dialog"
           aria-modal="true"
         >
-          <div className="relative w-full h-full max-w-6xl max-h-[90vh]" onClick={(e) => e.stopPropagation()}>
-            <Image
-              src={galleryImages[currentSlide]?.src || "/placeholder.svg"}
-              alt={galleryImages[currentSlide]?.alt || "Imagem"}
-              fill
-              className="object-contain"
-              priority
-            />
+          <div className="relative w-full max-w-6xl h-[72vh] sm:h-[84vh]" onClick={(e) => e.stopPropagation()}>
+            <div
+              className="relative h-full w-full overflow-hidden rounded-xl sm:rounded-2xl bg-black/30"
+              onWheel={handleWheelZoom}
+              onDoubleClick={handleDoubleClick}
+              onPointerDown={handlePointerDown}
+              onPointerMove={handlePointerMove}
+              onPointerUp={handlePointerUp}
+              onPointerCancel={handlePointerUp}
+              onPointerLeave={handlePointerUp}
+              style={{
+                cursor: zoomLevel > MIN_ZOOM ? (isPanning ? "grabbing" : "grab") : "zoom-in",
+                touchAction: zoomLevel > MIN_ZOOM ? "none" : "manipulation",
+              }}
+            >
+              <Image
+                src={activeImage?.src || "/placeholder.svg"}
+                alt={activeImage?.alt || "Imagem"}
+                fill
+                className="object-contain transition-transform duration-200 ease-out"
+                style={{ transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoomLevel})` }}
+                priority
+              />
+            </div>
+
+            <div className="absolute top-4 left-4 bg-black/55 text-white/90 text-xs sm:text-sm px-3 py-1.5 rounded-full">
+              Zoom: {Math.round(zoomLevel * 100)}%
+            </div>
 
             {/* Close button */}
             <button
-              onClick={() => setIsLightboxOpen(false)}
+              onClick={closeLightbox}
               className="absolute top-4 right-4 bg-white/90 hover:bg-white text-primary rounded-full p-3 shadow-lg transition-all"
               aria-label="Fechar"
             >
@@ -184,21 +307,44 @@ export default function Gallery() {
               <ChevronRight className="h-6 w-6" />
             </button>
 
+            <div className="absolute bottom-5 right-4 flex items-center gap-2">
+              <button
+                onClick={zoomOut}
+                className="bg-white/90 hover:bg-white text-primary rounded-full p-2.5 shadow-lg transition-all disabled:opacity-50"
+                aria-label="Diminuir zoom"
+                disabled={zoomLevel <= MIN_ZOOM}
+              >
+                <Minus className="h-5 w-5" />
+              </button>
+              <button
+                onClick={resetZoom}
+                className="bg-white/90 hover:bg-white text-primary rounded-full p-2.5 shadow-lg transition-all disabled:opacity-50"
+                aria-label="Resetar zoom"
+                disabled={zoomLevel === MIN_ZOOM && pan.x === 0 && pan.y === 0}
+              >
+                <RotateCcw className="h-5 w-5" />
+              </button>
+              <button
+                onClick={zoomIn}
+                className="bg-white/90 hover:bg-white text-primary rounded-full p-2.5 shadow-lg transition-all disabled:opacity-50"
+                aria-label="Aumentar zoom"
+                disabled={zoomLevel >= MAX_ZOOM}
+              >
+                <Plus className="h-5 w-5" />
+              </button>
+            </div>
+
             {/* Caption (optional) */}
-            {(galleryImages[currentSlide]?.title || galleryImages[currentSlide]?.description) && (
+            {(activeImage?.title || activeImage?.description) && (
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
                 <div className="flex items-center gap-3">
                   {(() => {
-                    const ActiveIcon = galleryImages[currentSlide]?.icon
+                    const ActiveIcon = activeImage?.icon
                     return ActiveIcon ? <ActiveIcon className="h-6 w-6 text-emerald-400" /> : null
                   })()}
-                  {galleryImages[currentSlide]?.title && (
-                    <h3 className="text-white text-xl font-semibold">{galleryImages[currentSlide]?.title}</h3>
-                  )}
+                  {activeImage?.title && <h3 className="text-white text-xl font-semibold">{activeImage?.title}</h3>}
                 </div>
-                {galleryImages[currentSlide]?.description && (
-                  <p className="text-white/90 mt-2">{galleryImages[currentSlide]?.description}</p>
-                )}
+                {activeImage?.description && <p className="text-white/90 mt-2">{activeImage?.description}</p>}
               </div>
             )}
           </div>

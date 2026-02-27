@@ -1,51 +1,32 @@
 "use client"
 
-import { useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { MessageSquare, Users, Calendar, BarChart3, Zap, Chrome, Database, CheckCircle } from "lucide-react"
+import { MessageSquare, Users, Calendar, BarChart3, Zap, Chrome, Database } from "lucide-react"
 import { scrollToSection } from "@/lib/utils"
 
 export default function ConvertoFeatures() {
-  const [activeFeature, setActiveFeature] = useState(0)
-
   const features = [
     {
       icon: <Chrome className="w-8 h-8" />,
       title: "Funil organizado no WhatsApp",
-      subtitle: "Etapas visuais sem trocar de app",
-      description:
-        "Cada conversa vira um cartão com etapa de venda. Arraste entre status direto no WhatsApp Web e saiba quem cuida de cada cliente.",
-      benefits: ["Ver todas as conversas por etapa", "Responsável claro por cliente", "Nada de cartões esquecidos"],
-      color: "from-emerald-500 to-teal-500",
+      summary: "Etapas visuais para acompanhar cada cliente sem sair do WhatsApp.",
     },
     {
       icon: <Database className="w-8 h-8" />,
       title: "Histórico que não se perde",
-      subtitle: "Anotações fixadas na conversa",
-      description:
-        "Registre decisões, valores e próximos passos sem sair do chat. O histórico fica salvo por cliente e qualquer vendedor assume sem perder contexto.",
-      benefits: ["Contexto pronto para qualquer vendedor", "Decisões e valores salvos no cliente", "Nada some quando troca de aparelho"],
-      color: "from-blue-500 to-cyan-500",
+      summary: "Registros e decisões ficam salvos por cliente para ninguém perder contexto.",
     },
     {
       icon: <Calendar className="w-8 h-8" />,
       title: "Alertas e follow-ups automáticos",
-      subtitle: "Cliente certo, hora certa",
-      description:
-        "O Converto avisa quem está esperando retorno. Lembretes chegam na própria lista do WhatsApp.",
-      benefits: ["Receba alerta antes do cliente sumir", "Agenda diária de follow-up", "Follow-ups pontuais e rastreáveis"],
-      color: "from-purple-500 to-pink-500",
+      summary: "Lembretes automáticos ajudam o time a responder no momento certo.",
     },
     {
       icon: <BarChart3 className="w-8 h-8" />,
       title: "Visão da carteira em minutos",
-      subtitle: "Controle do gestor, sem planilha",
-      description:
-        "Veja quantos clientes estão em negociação, por etapa e por vendedor. Enxergue gargalos e acompanhe com clareza.",
-      benefits: ["Total por etapa em minutos", "Relatórios por vendedor"],
-      color: "from-orange-500 to-red-500",
+      summary: "Acompanhe etapas e vendedores com clareza, sem depender de planilhas.",
     },
   ]
 
@@ -84,45 +65,16 @@ export default function ConvertoFeatures() {
 
         {/* Features Grid */}
         <div className="w-full">
-          <div className="flex flex-col md:flex-row md:flex-wrap gap-4 w-full justify-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
             {features.map((feature, index) => (
-              <Card
-                key={index}
-                className={`cursor-pointer transition-all duration-300 hover-lift w-full md:flex-1 ${
-                  activeFeature === index ? "ring-2 ring-primary shadow-lg border-primary" : "hover:bg-muted/50"
-                }`}
-                onClick={() => setActiveFeature(index)}
-              >
-                <CardContent className="p-5 sm:p-6">
-                  <div className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-5">
-                    <div
-                      className={`p-3 rounded-xl bg-gradient-to-r ${feature.color} text-white feature-icon self-start sm:self-auto`}
-                    >
+              <Card key={index} className="transition-all duration-300 hover-lift h-full hover:bg-muted/40">
+                <CardContent className="p-6 h-full">
+                  <div className="flex flex-col items-center text-center gap-4 h-full">
+                    <div className="p-3 rounded-xl bg-emerald-100 text-emerald-700">
                       {feature.icon}
                     </div>
-                    <div className="flex-1 space-y-3">
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
-                        <h3 className="text-lg sm:text-xl font-semibold text-foreground leading-snug">{feature.title}</h3>
-                        <Badge variant="secondary" className="text-[11px] sm:text-xs w-fit">
-                          {feature.subtitle}
-                        </Badge>
-                      </div>
-                      <p className="text-sm sm:text-base text-muted-foreground text-pretty leading-relaxed">
-                        {feature.description}
-                      </p>
-                      <div className="flex flex-wrap gap-2">
-                        {feature.benefits.map((benefit, idx) => (
-                          <Badge
-                            key={idx}
-                            variant="outline"
-                            className="text-[11px] sm:text-xs font-medium leading-tight py-1 px-2 rounded-full"
-                          >
-                            <CheckCircle className="w-3 h-3 mr-1" />
-                            {benefit}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
+                    <h3 className="text-xl sm:text-2xl font-semibold text-emerald-700 leading-snug">{feature.title}</h3>
+                    <p className="text-base sm:text-lg text-muted-foreground text-pretty leading-relaxed">{feature.summary}</p>
                   </div>
                 </CardContent>
               </Card>

@@ -28,19 +28,19 @@ export default function Hero() {
             </span>
           </h1>
 
-          <p className={`text-xl text-muted-foreground mb-8 max-w-3xl mx-auto transition-all duration-1000 delay-400 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}>
+          {/* <p className={`text-xl text-muted-foreground mb-8 max-w-3xl mx-auto transition-all duration-1000 delay-400 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}>
             Organize conversas, prazos e follow-ups no canal que você já usa. Nada de implantação demorada ou ferramentas complicadas — só visibilidade diária de quem está comprando e quem precisa de retorno.
-          </p>
+          </p> */}
 
           <div className={`flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 transition-all duration-1000 delay-600 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}>
-            <Button
+            {/* <Button
               size="lg"
               className="bg-primary hover:bg-primary/90 text-lg px-10 py-6 shadow-2xl hover:shadow-primary/25 transition-all duration-300 hover:scale-105"
               onClick={() => scrollToSection("precos")}
             >
               Começar grátis por 7 dias
               <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
+            </Button> */}
             <Button
               size="lg"
               variant="outline"

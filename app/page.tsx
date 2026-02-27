@@ -45,8 +45,8 @@ export default function LandingPage() {
       <FloatingIndicator />
       <Header />
       <Hero />
-      <Gallery />
       <ConvertoFeatures />
+      <Gallery />
       <Features />
       <Planos />
       <FAQ />
