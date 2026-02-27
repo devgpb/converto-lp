@@ -4,11 +4,17 @@ import { useState } from "react"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
-import { scrollToSection } from "@/lib/utils"
 import { CORPORATE_ACCESS_URL } from "@/lib/constants"
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const navLinks = [
+    { href: "#galeria", label: "Galeria" },
+    { href: "#beneficios", label: "Benefícios" },
+    { href: "#recursos", label: "Recursos" },
+    { href: "#precos", label: "Preços" },
+    { href: "#faq", label: "FAQ" },
+  ]
 
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
@@ -20,20 +26,28 @@ export default function Header() {
           </div>
 
           <nav className="hidden md:flex items-center space-x-6">
-            <button onClick={() => scrollToSection("galeria")} className="text-muted-foreground hover:text-foreground transition-colors">Galeria</button>
-            <button onClick={() => scrollToSection("beneficios")} className="text-muted-foreground hover:text-foreground transition-colors">Benefícios</button>
-            <button onClick={() => scrollToSection("recursos")} className="text-muted-foreground hover:text-foreground transition-colors">Recursos</button>
-            <button onClick={() => scrollToSection("precos")} className="text-muted-foreground hover:text-foreground transition-colors">Preços</button>
-            <button onClick={() => scrollToSection("faq")} className="text-muted-foreground hover:text-foreground transition-colors">FAQ</button>
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
             <Button variant="outline" size="sm" asChild>
               <a href={CORPORATE_ACCESS_URL} target="_blank" rel="noopener noreferrer">Acesso Corporativo</a>
             </Button>
-            <Button size="sm" className="bg-primary hover:bg-primary/90" onClick={() => scrollToSection("precos")}>
-              Testar grátis
+            <Button size="sm" className="bg-primary hover:bg-primary/90" asChild>
+              <a href="#precos">Testar grátis</a>
             </Button>
           </nav>
 
-          <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          <button
+            className="md:hidden"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
+          >
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
@@ -41,19 +55,24 @@ export default function Header() {
           {isMenuOpen && (
             <div className="md:hidden py-4 border-t animate-fade-in">
               <nav className="flex flex-col space-y-4">
-                <button onClick={() => { scrollToSection("galeria"); setIsMenuOpen(false) }} className="text-muted-foreground hover:text-foreground transition-colors text-left">Galeria</button>
-                <button onClick={() => { scrollToSection("beneficios"); setIsMenuOpen(false) }} className="text-muted-foreground hover:text-foreground transition-colors text-left">Benefícios</button>
-                <button onClick={() => { scrollToSection("recursos"); setIsMenuOpen(false) }} className="text-muted-foreground hover:text-foreground transition-colors text-left">Recursos</button>
-                <button onClick={() => { scrollToSection("precos"); setIsMenuOpen(false) }} className="text-muted-foreground hover:text-foreground transition-colors text-left">Preços</button>
-                <button onClick={() => { scrollToSection("faq"); setIsMenuOpen(false) }} className="text-muted-foreground hover:text-foreground transition-colors text-left">FAQ</button>
+                {navLinks.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setIsMenuOpen(false)}
+                    className="text-muted-foreground hover:text-foreground transition-colors text-left"
+                  >
+                    {link.label}
+                  </a>
+                ))}
                 <div className="pt-2">
                   <Button variant="outline" size="sm" asChild className="w-full">
                     <a href={CORPORATE_ACCESS_URL} target="_blank" rel="noopener noreferrer">Acesso Corporativo</a>
                   </Button>
                 </div>
                 <div className="pt-4">
-                  <Button size="sm" className="bg-primary hover:bg-primary/90 w-full" onClick={() => { scrollToSection("precos"); setIsMenuOpen(false) }}>
-                    Testar grátis
+                  <Button size="sm" className="bg-primary hover:bg-primary/90 w-full" asChild>
+                    <a href="#precos" onClick={() => setIsMenuOpen(false)}>Testar grátis</a>
                   </Button>
                 </div>
               </nav>

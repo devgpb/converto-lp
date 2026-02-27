@@ -1,3 +1,11 @@
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Termos de Uso | Converto",
+  description: "Regras e condições de uso da plataforma Converto.",
+  alternates: { canonical: "/termos-de-uso" },
+}
+
 export default function TermosDeUsoPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">

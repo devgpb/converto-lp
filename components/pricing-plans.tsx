@@ -82,9 +82,9 @@ export function PricingPlans() {
         <div className="inline-flex items-center gap-2 bg-accent/10 text-accent px-4 py-2 rounded-full text-sm font-medium mb-6">
           <Sparkles className="w-4 h-4" />7 dias grátis
         </div>
-        <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4 text-balance">
+        <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 text-balance">
           Mensalidade acessível, sem implantação
-        </h1>
+        </h2>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-balance">
           Ative o trial em minutos e veja sua operação organizada já na primeira semana. Escolha o plano que cabe no seu time.
         </p>

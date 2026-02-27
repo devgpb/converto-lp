@@ -1,8 +1,9 @@
 import type { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://converto-gilt.vercel.app'
+  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://converto-gilt.vercel.app').replace(/\/$/, '')
   const now = new Date()
+
   return [
     {
       url: `${siteUrl}/`,
@@ -11,17 +12,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: `${siteUrl}/confirmacao`,
+      url: `${siteUrl}/politica-de-privacidade`,
       lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.4,
+      changeFrequency: 'yearly',
+      priority: 0.5,
     },
     {
-      url: `${siteUrl}/checkout`,
+      url: `${siteUrl}/termos-de-uso`,
       lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.2,
+      changeFrequency: 'yearly',
+      priority: 0.5,
     },
   ]
 }
-

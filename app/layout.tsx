@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import './globals.css'
@@ -6,14 +6,15 @@ import ConsentBanner from '@/components/consent-banner'
 import AnalyticsGate from '@/components/analytics-gate'
 import WhatsappFloat from '@/components/whatsapp-float'
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://converto-gilt.vercel.app'
-const titleDefault = 'Converto — CRM simples integrado ao WhatsApp'
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://converto-gilt.vercel.app').replace(/\/$/, '')
+const siteName = 'Converto'
+const titleDefault = 'Converto | CRM para vendas no WhatsApp'
 const descriptionDefault =
-  'Converto é um CRM integrado ao WhatsApp, com extensão de navegador em sidebar para registrar dados de contatos, marcar eventos e sincronizar informações de vendas de forma simples.'
+  'Organize leads, follow-ups e equipe de vendas no WhatsApp com o Converto. CRM simples, rápido de implantar e feito para pequenas e médias empresas.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  applicationName: 'Converto',
+  applicationName: siteName,
   title: {
     default: titleDefault,
     template: '%s · Converto',
@@ -31,17 +32,23 @@ export const metadata: Metadata = {
     'sincronia de dados',
     'cadastro de clientes',
   ],
-  authors: [{ name: 'Converto' }],
-  creator: 'Converto',
-  publisher: 'Converto',
+  authors: [{ name: siteName }],
+  creator: siteName,
+  publisher: siteName,
   category: 'CRM',
+  referrer: 'origin-when-cross-origin',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   alternates: {
     canonical: '/',
   },
   openGraph: {
     type: 'website',
     url: '/',
-    siteName: 'Converto',
+    siteName,
     title: titleDefault,
     description: descriptionDefault,
     images: [
@@ -76,10 +83,11 @@ export const metadata: Metadata = {
     shortcut: '/logo.png',
     apple: '/logo.png',
   },
-  generator: 'Next.js 15',
 }
 
-export const viewport = {
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#ffffff' },
     { media: '(prefers-color-scheme: dark)', color: '#0b0b0c' },

@@ -57,6 +57,7 @@ export default function Footer() {
               </li>
               <li><a href="#faq" className="hover:text-foreground transition-colors">Suporte e contato</a></li>
               <li><a href="/politica-de-privacidade" className="hover:text-foreground transition-colors">Política de Privacidade</a></li>
+              <li><a href="/termos-de-uso" className="hover:text-foreground transition-colors">Termos de Uso</a></li>
             </ul>
           </div>
         </div>

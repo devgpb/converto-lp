@@ -1,6 +1,9 @@
-export const metadata = {
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
   title: "Política de Privacidade | Converto",
   description: "Entenda como o Converto coleta, usa e protege seus dados.",
+  alternates: { canonical: "/politica-de-privacidade" },
 }
 
 export default function PoliticaDePrivacidade() {
