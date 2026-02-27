@@ -9,6 +9,7 @@ import { CORPORATE_ACCESS_URL } from "@/lib/constants"
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const navLinks = [
+    { href: "/blog", label: "Blog" },
     { href: "#galeria", label: "Galeria" },
     { href: "#beneficios", label: "Benefícios" },
     { href: "#recursos", label: "Recursos" },
