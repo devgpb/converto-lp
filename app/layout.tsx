@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from 'next'
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import { Analytics } from '@vercel/analytics/next'
+import Script from 'next/script'
+
 import './globals.css'
 import ConsentBanner from '@/components/consent-banner'
 import WhatsappFloat from '@/components/whatsapp-float'
@@ -102,6 +104,18 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <head>
+      <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=AW-17996028524"
+        />
+        <Script id="google-ads-gtag">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-17996028524');
+          `}
+        </Script>
         <style>{`
 html {
   font-family: ${GeistSans.style.fontFamily};
