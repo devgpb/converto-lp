@@ -4,7 +4,7 @@ import { useState } from "react"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
-import { CORPORATE_ACCESS_URL } from "@/lib/constants"
+// import { CORPORATE_ACCESS_URL } from "@/lib/constants"
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -36,9 +36,9 @@ export default function Header() {
                 {link.label}
               </a>
             ))}
-            <Button variant="outline" size="sm" asChild>
+            {/* <Button variant="outline" size="sm" asChild>
               <a href={CORPORATE_ACCESS_URL} target="_blank" rel="noopener noreferrer">Acesso Corporativo</a>
-            </Button>
+            </Button> */}
             <Button size="sm" className="bg-primary hover:bg-primary/90" asChild>
               <a href="#precos">Testar grátis</a>
             </Button>
@@ -67,9 +67,9 @@ export default function Header() {
                   </a>
                 ))}
                 <div className="pt-2">
-                  <Button variant="outline" size="sm" asChild className="w-full">
+                  {/* <Button variant="outline" size="sm" asChild className="w-full">
                     <a href={CORPORATE_ACCESS_URL} target="_blank" rel="noopener noreferrer">Acesso Corporativo</a>
-                  </Button>
+                  </Button> */}
                 </div>
                 <div className="pt-4">
                   <Button size="sm" className="bg-primary hover:bg-primary/90 w-full" asChild>
