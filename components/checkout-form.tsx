@@ -25,6 +25,13 @@ interface Plan {
 
 const TRIAL_DAYS = Number(process.env.NEXT_PUBLIC_TRIAL_DAYS ?? 7)
 
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void
+  }
+}
+
+
 const plans: Plan[] = [
   {
     id: "starter",
@@ -62,6 +69,8 @@ const plans: Plan[] = [
     minSeats: 6,
   },
 ]
+
+
 
 export function CheckoutForm() {
   const router = useRouter()
@@ -156,11 +165,43 @@ export function CheckoutForm() {
       }
 
       const data = await response.json()
-      window.location.href = data.checkout_url
+
+      if (!data?.checkout_url) {
+        throw new Error("URL de checkout não retornada pela API.")
+      }
+
+      gtagReportConversion(data.checkout_url)
+      return
     } catch (err) {
       setError(err instanceof Error ? err.message : "Erro ao processar. Tente novamente.")
     } finally {
       setIsLoading(false)
+    }
+  }
+
+  function gtagReportConversion(url?: string) {
+    let hasRedirected = false
+
+    const callback = () => {
+      if (hasRedirected) return
+      hasRedirected = true
+
+      if (url) {
+        window.location.href = url
+      }
+    }
+
+    if (typeof window.gtag === "function") {
+      window.gtag("event", "conversion", {
+        send_to: "AW-17996028524/LAfdCIug-okcEOy0loVD",
+        transaction_id: "",
+        event_callback: callback,
+        // new_customer: true,
+      })
+
+      setTimeout(callback, 1200)
+    } else {
+      callback()
     }
   }
 
