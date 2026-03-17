@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { formatBlogDate, getAllBlogSlugs, getBlogPostBySlug } from '@/lib/blog'
 
-const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://converto-gilt.vercel.app').replace(/\/$/, '')
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.useconverto.com/').replace(/\/$/, '')
 
 type BlogPostPageProps = {
   params: Promise<{ slug: string }>

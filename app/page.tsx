@@ -11,7 +11,7 @@ import FinalCTA from "@/components/landing/FinalCTA"
 import Footer from "@/components/landing/Footer"
 import { CONTACT_INFO, PRICING_PLANS } from "@/lib/constants"
 
-const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://converto-gilt.vercel.app").replace(/\/$/, "")
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://www.useconverto.com/").replace(/\/$/, "")
 
 const faqItems = [
   {

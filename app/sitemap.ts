@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next'
 import { getAllBlogPosts, toBlogDate } from '@/lib/blog'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://converto-gilt.vercel.app').replace(/\/$/, '')
+  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.useconverto.com/').replace(/\/$/, '')
   const now = new Date()
   const blogPosts = await getAllBlogPosts()
 

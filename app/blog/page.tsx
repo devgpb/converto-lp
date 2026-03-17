@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { formatBlogDate, getAllBlogPosts } from '@/lib/blog'
 
-const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://converto-gilt.vercel.app').replace(/\/$/, '')
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.useconverto.com/').replace(/\/$/, '')
 const pageTitle = 'Blog Converto: Vendas no WhatsApp com processo e previsibilidade'
 const pageDescription =
   'Guias práticos para organizar vendas no WhatsApp, evitar perda de clientes e aumentar conversão com método simples.'

@@ -10,7 +10,7 @@ import WhatsappFloat from '@/components/whatsapp-float'
 import { CONSENT_STORAGE_KEY } from '@/lib/consent'
 import { GOOGLE_ADS_ID } from '@/lib/google-ads'
 
-const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://converto-gilt.vercel.app').replace(/\/$/, '')
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.useconverto.com/').replace(/\/$/, '')
 const siteName = 'Converto'
 const titleDefault = 'Converto | CRM para vendas no WhatsApp'
 const descriptionDefault =
