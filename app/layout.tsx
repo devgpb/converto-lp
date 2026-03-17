@@ -5,7 +5,10 @@ import Script from 'next/script'
 
 import './globals.css'
 import ConsentBanner from '@/components/consent-banner'
+import GoogleAdsConsentSync from '@/components/google-ads-consent-sync'
 import WhatsappFloat from '@/components/whatsapp-float'
+import { CONSENT_STORAGE_KEY } from '@/lib/consent'
+import { GOOGLE_ADS_ID } from '@/lib/google-ads'
 
 const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://converto-gilt.vercel.app').replace(/\/$/, '')
 const siteName = 'Converto'
@@ -103,16 +106,36 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <head>
-      <Script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=AW-17996028524"
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_ID}`}
+          strategy="beforeInteractive"
         />
-        <Script id="google-ads-gtag">
+        <Script id="google-ads-gtag" strategy="beforeInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'AW-17996028524');
+            window.gtag = window.gtag || function(){dataLayer.push(arguments);}
+            var consent = {
+              analytics_storage: 'denied',
+              ad_storage: 'denied',
+              ad_user_data: 'denied',
+              ad_personalization: 'denied',
+            };
+
+            try {
+              var rawConsent = localStorage.getItem('${CONSENT_STORAGE_KEY}');
+              if (rawConsent) {
+                var parsedConsent = JSON.parse(rawConsent);
+                consent.analytics_storage = parsedConsent.analytics ? 'granted' : 'denied';
+                var marketingState = parsedConsent.marketing ? 'granted' : 'denied';
+                consent.ad_storage = marketingState;
+                consent.ad_user_data = marketingState;
+                consent.ad_personalization = marketingState;
+              }
+            } catch (error) {}
+
+            window.gtag('consent', 'default', consent);
+            window.gtag('js', new Date());
+            window.gtag('config', '${GOOGLE_ADS_ID}');
           `}
         </Script>
         <style>{`
@@ -125,6 +148,7 @@ html {
       </head>
       <body>
         <ConsentBanner />
+        <GoogleAdsConsentSync />
         {children}
         <WhatsappFloat />
       </body>

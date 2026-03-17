@@ -1,17 +1,15 @@
-"use client"
-
 export type ConsentCategories = {
   essential: true
   analytics: boolean
   marketing: boolean
 }
 
-const CONSENT_KEY = "consent_prefs"
+export const CONSENT_STORAGE_KEY = "consent_prefs"
 
 export function getConsent(): ConsentCategories | null {
   if (typeof window === "undefined") return null
   try {
-    const raw = localStorage.getItem(CONSENT_KEY)
+    const raw = localStorage.getItem(CONSENT_STORAGE_KEY)
     if (!raw) return null
     const parsed = JSON.parse(raw) as ConsentCategories
     return {
@@ -27,7 +25,7 @@ export function getConsent(): ConsentCategories | null {
 export function setConsent(consent: Omit<ConsentCategories, "essential">) {
   if (typeof window === "undefined") return
   const value: ConsentCategories = { essential: true, ...consent }
-  localStorage.setItem(CONSENT_KEY, JSON.stringify(value))
+  localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify(value))
   window.dispatchEvent(new Event("consent:updated"))
 }
 

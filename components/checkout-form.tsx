@@ -12,6 +12,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { ArrowLeft, CreditCard, Users, Shield } from "lucide-react"
 import { API_URL } from "@/lib/api"
+import { hasConsent } from "@/lib/consent"
+import { extractCheckoutTransactionId, reportGoogleAdsConversion } from "@/lib/google-ads"
 
 interface Plan {
   id: string
@@ -23,13 +25,14 @@ interface Plan {
   maxSeats?: number
 }
 
-const TRIAL_DAYS = Number(process.env.NEXT_PUBLIC_TRIAL_DAYS ?? 7)
-
-declare global {
-  interface Window {
-    gtag?: (...args: any[]) => void
-  }
+type CheckoutResponse = {
+  checkout_url?: string
+  transaction_id?: string
+  session_id?: string
+  id?: string
 }
+
+const TRIAL_DAYS = Number(process.env.NEXT_PUBLIC_TRIAL_DAYS ?? 7)
 
 
 const plans: Plan[] = [
@@ -164,44 +167,28 @@ export function CheckoutForm() {
         throw new Error("Erro ao processar pagamento")
       }
 
-      const data = await response.json()
+      const data = (await response.json()) as CheckoutResponse
 
       if (!data?.checkout_url) {
         throw new Error("URL de checkout não retornada pela API.")
       }
 
-      gtagReportConversion(data.checkout_url)
+      const transactionId =
+        data.transaction_id ||
+        data.session_id ||
+        data.id ||
+        extractCheckoutTransactionId(data.checkout_url, tenantId)
+
+      reportGoogleAdsConversion({
+        url: data.checkout_url,
+        transactionId,
+        enabled: hasConsent("marketing"),
+      })
       return
     } catch (err) {
       setError(err instanceof Error ? err.message : "Erro ao processar. Tente novamente.")
     } finally {
       setIsLoading(false)
-    }
-  }
-
-  function gtagReportConversion(url?: string) {
-    let hasRedirected = false
-
-    const callback = () => {
-      if (hasRedirected) return
-      hasRedirected = true
-
-      if (url) {
-        window.location.href = url
-      }
-    }
-
-    if (typeof window.gtag === "function") {
-      window.gtag("event", "conversion", {
-        send_to: "AW-17996028524/LAfdCIug-okcEOy0loVD",
-        transaction_id: "",
-        event_callback: callback,
-        // new_customer: true,
-      })
-
-      setTimeout(callback, 1200)
-    } else {
-      callback()
     }
   }
 
