@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Check, Sparkles } from "lucide-react"
+import { trackHomeEventOnce } from "@/lib/lp-tracking"
 
 interface Plan {
   id: string
@@ -73,6 +74,10 @@ export function PricingPlans() {
 
   const handleGetStarted = () => {
     // Trial de 7 dias com cobrança iniciando após confirmação do cliente.
+    trackHomeEventOnce(
+      { eventName: "cta_click", section: "precos", ctaId: "pricing_comecar_agora" },
+      "cta:pricing_comecar_agora"
+    )
     router.push("/cadastro")
   }
 

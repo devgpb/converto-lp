@@ -3,6 +3,7 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, BarChart3, CheckSquare, MessageCircle, Timer } from "lucide-react"
+import { trackHomeEventOnce } from "@/lib/lp-tracking"
 import { scrollToSection } from "@/lib/utils"
 
 export default function Features() {
@@ -66,7 +67,13 @@ export default function Features() {
           <Button
             size="lg"
             className="bg-primary text-primary-foreground px-10 py-6 text-lg"
-            onClick={() => scrollToSection("precos")}
+            onClick={() => {
+              trackHomeEventOnce(
+                { eventName: "cta_click", section: "recursos", ctaId: "recursos_comecar_gratis" },
+                "cta:recursos_comecar_gratis"
+              )
+              scrollToSection("precos")
+            }}
           >
             Começar grátis agora
             <ArrowRight className="ml-2 h-5 w-5" />
@@ -75,7 +82,13 @@ export default function Features() {
             size="lg"
             variant="outline"
             className="px-10 py-6 text-lg"
-            onClick={() => scrollToSection("beneficios")}
+            onClick={() => {
+              trackHomeEventOnce(
+                { eventName: "cta_click", section: "recursos", ctaId: "recursos_ver_beneficios" },
+                "cta:recursos_ver_beneficios"
+              )
+              scrollToSection("beneficios")
+            }}
           >
             Ver detalhes dos benefícios
           </Button>

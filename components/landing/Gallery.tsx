@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, type PointerEvent, type WheelEvent } 
 import Image from "next/image"
 import { ChevronLeft, ChevronRight, Minus, Plus, RotateCcw, X } from "lucide-react"
 import { GALLERY_IMAGES } from "@/lib/constants"
+import { trackHomeEventOnce } from "@/lib/lp-tracking"
 
 const MIN_ZOOM = 1
 const MAX_ZOOM = 4
@@ -23,6 +24,19 @@ export default function Gallery() {
   const galleryImages = GALLERY_IMAGES
   const totalSlides = galleryImages.length
   const activeImage = galleryImages[currentSlide]
+
+  const trackGalleryInteraction = useCallback((action: string) => {
+      trackHomeEventOnce(
+        {
+          eventName: "gallery_interaction",
+          section: "galeria",
+          metadata: {
+            first_action: action,
+          },
+        },
+        "gallery:any_interaction"
+      )
+    }, [])
 
   const nextSlide = useCallback(() => {
     if (!totalSlides) return
@@ -58,9 +72,10 @@ export default function Gallery() {
   const zoomOut = useCallback(() => applyZoom(zoomLevel - ZOOM_STEP), [applyZoom, zoomLevel])
 
   const openLightbox = useCallback(() => {
+    trackGalleryInteraction("open_lightbox")
     setIsLightboxOpen(true)
     resetZoom()
-  }, [resetZoom])
+  }, [resetZoom, trackGalleryInteraction])
 
   const closeLightbox = useCallback(() => {
     setIsLightboxOpen(false)
@@ -176,13 +191,19 @@ export default function Gallery() {
 
                 {/* Controls over image */}
                 <button
-                  onClick={prevSlide}
+                  onClick={() => {
+                    trackGalleryInteraction("prev_slide")
+                    prevSlide()
+                  }}
                   className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-primary rounded-full p-3 shadow-lg transition-all duration-300 hover:scale-110"
                 >
                   <ChevronLeft className="h-6 w-6" />
                 </button>
                 <button
-                  onClick={nextSlide}
+                  onClick={() => {
+                    trackGalleryInteraction("next_slide")
+                    nextSlide()
+                  }}
                   className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-primary rounded-full p-3 shadow-lg transition-all duration-300 hover:scale-110"
                 >
                   <ChevronRight className="h-6 w-6" />
@@ -192,7 +213,10 @@ export default function Gallery() {
                   {galleryImages.map((_, index) => (
                     <button
                       key={index}
-                      onClick={() => setCurrentSlide(index)}
+                      onClick={() => {
+                        trackGalleryInteraction("pagination_dot")
+                        setCurrentSlide(index)
+                      }}
                       className={`w-3 h-3 rounded-full transition-all duration-300 ${
                         index === currentSlide ? "bg-primary scale-125" : "bg-white/50 hover:bg-white/80"
                       }`}
@@ -220,7 +244,10 @@ export default function Gallery() {
             {galleryImages.map((image, index) => (
               <button
                 key={index}
-                onClick={() => setCurrentSlide(index)}
+                onClick={() => {
+                  trackGalleryInteraction("thumbnail_select")
+                  setCurrentSlide(index)
+                }}
                 className={`relative overflow-hidden rounded-lg transition-all duration-300 ${
                   index === currentSlide ? "ring-4 ring-primary scale-105" : "hover:scale-105 opacity-70 hover:opacity-100"
                 }`}
@@ -278,7 +305,10 @@ export default function Gallery() {
 
             {/* Close button */}
             <button
-              onClick={closeLightbox}
+              onClick={() => {
+                trackGalleryInteraction("close_lightbox")
+                closeLightbox()
+              }}
               className="absolute top-4 right-4 bg-white/90 hover:bg-white text-primary rounded-full p-3 shadow-lg transition-all"
               aria-label="Fechar"
             >
@@ -289,6 +319,7 @@ export default function Gallery() {
             <button
               onClick={(e) => {
                 e.stopPropagation()
+                trackGalleryInteraction("lightbox_prev_slide")
                 prevSlide()
               }}
               className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-primary rounded-full p-3 shadow-lg transition-all"
@@ -299,6 +330,7 @@ export default function Gallery() {
             <button
               onClick={(e) => {
                 e.stopPropagation()
+                trackGalleryInteraction("lightbox_next_slide")
                 nextSlide()
               }}
               className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-primary rounded-full p-3 shadow-lg transition-all"
@@ -309,7 +341,10 @@ export default function Gallery() {
 
             <div className="absolute bottom-5 right-4 flex items-center gap-2">
               <button
-                onClick={zoomOut}
+                onClick={() => {
+                  trackGalleryInteraction("zoom_out")
+                  zoomOut()
+                }}
                 className="bg-white/90 hover:bg-white text-primary rounded-full p-2.5 shadow-lg transition-all disabled:opacity-50"
                 aria-label="Diminuir zoom"
                 disabled={zoomLevel <= MIN_ZOOM}
@@ -317,7 +352,10 @@ export default function Gallery() {
                 <Minus className="h-5 w-5" />
               </button>
               <button
-                onClick={resetZoom}
+                onClick={() => {
+                  trackGalleryInteraction("reset_zoom")
+                  resetZoom()
+                }}
                 className="bg-white/90 hover:bg-white text-primary rounded-full p-2.5 shadow-lg transition-all disabled:opacity-50"
                 aria-label="Resetar zoom"
                 disabled={zoomLevel === MIN_ZOOM && pan.x === 0 && pan.y === 0}
@@ -325,7 +363,10 @@ export default function Gallery() {
                 <RotateCcw className="h-5 w-5" />
               </button>
               <button
-                onClick={zoomIn}
+                onClick={() => {
+                  trackGalleryInteraction("zoom_in")
+                  zoomIn()
+                }}
                 className="bg-white/90 hover:bg-white text-primary rounded-full p-2.5 shadow-lg transition-all disabled:opacity-50"
                 aria-label="Aumentar zoom"
                 disabled={zoomLevel >= MAX_ZOOM}

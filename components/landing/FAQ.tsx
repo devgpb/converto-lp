@@ -1,6 +1,7 @@
 "use client"
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { trackHomeEventOnce } from "@/lib/lp-tracking"
 
 export default function FAQ() {
   return (
@@ -12,7 +13,15 @@ export default function FAQ() {
         </div>
 
         <div className="max-w-4xl mx-auto">
-          <Accordion type="single" collapsible className="space-y-4">
+          <Accordion
+            type="single"
+            collapsible
+            className="space-y-4"
+            onValueChange={(value) => {
+              if (!value) return
+              trackHomeEventOnce({ eventName: "faq_open", section: "faq" }, "faq:any_interaction")
+            }}
+          >
             <AccordionItem value="item-1" className="border rounded-lg px-6 hover:shadow-lg transition-all duration-300">
               <AccordionTrigger className="text-left text-lg font-semibold">O Converto substitui o WhatsApp?</AccordionTrigger>
               <AccordionContent className="text-base leading-relaxed">

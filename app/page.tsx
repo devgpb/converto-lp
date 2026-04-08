@@ -9,6 +9,7 @@ import Planos from "@/components/landing/Planos"
 import FAQ from "@/components/landing/FAQ"
 import FinalCTA from "@/components/landing/FinalCTA"
 import Footer from "@/components/landing/Footer"
+import HomeTracking from "@/components/home-tracking"
 import { CONTACT_INFO, PRICING_PLANS } from "@/lib/constants"
 
 const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://www.useconverto.com/").replace(/\/$/, "")
@@ -154,6 +155,7 @@ const faqJsonLd = {
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-background relative">
+      <HomeTracking />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}

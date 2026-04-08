@@ -4,6 +4,7 @@ import { useState } from "react"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
+import { trackHomeEventOnce } from "@/lib/lp-tracking"
 // import { CORPORATE_ACCESS_URL } from "@/lib/constants"
 
 export default function Header() {
@@ -40,7 +41,17 @@ export default function Header() {
               <a href={CORPORATE_ACCESS_URL} target="_blank" rel="noopener noreferrer">Acesso Corporativo</a>
             </Button> */}
             <Button size="sm" className="bg-primary hover:bg-primary/90" asChild>
-              <a href="#precos">Testar grátis</a>
+              <a
+                href="#precos"
+                onClick={() =>
+                  trackHomeEventOnce(
+                    { eventName: "cta_click", section: "hero", ctaId: "header_testar_gratis" },
+                    "cta:header_testar_gratis"
+                  )
+                }
+              >
+                Testar grátis
+              </a>
             </Button>
           </nav>
 
@@ -73,7 +84,18 @@ export default function Header() {
                 </div>
                 <div className="pt-4">
                   <Button size="sm" className="bg-primary hover:bg-primary/90 w-full" asChild>
-                    <a href="#precos" onClick={() => setIsMenuOpen(false)}>Testar grátis</a>
+                    <a
+                      href="#precos"
+                      onClick={() => {
+                        trackHomeEventOnce(
+                          { eventName: "cta_click", section: "hero", ctaId: "mobile_header_testar_gratis" },
+                          "cta:mobile_header_testar_gratis"
+                        )
+                        setIsMenuOpen(false)
+                      }}
+                    >
+                      Testar grátis
+                    </a>
                   </Button>
                 </div>
               </nav>

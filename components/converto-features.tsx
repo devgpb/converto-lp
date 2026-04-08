@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { MessageSquare, Users, Calendar, BarChart3, Zap, Chrome, Database } from "lucide-react"
+import { trackHomeEventOnce } from "@/lib/lp-tracking"
 import { scrollToSection } from "@/lib/utils"
 
 export default function ConvertoFeatures() {
@@ -85,7 +86,13 @@ export default function ConvertoFeatures() {
             <Button
               size="lg"
               className="bg-primary text-primary-foreground px-10 py-6 text-lg"
-              onClick={() => scrollToSection("precos")}
+              onClick={() => {
+                trackHomeEventOnce(
+                  { eventName: "cta_click", section: "beneficios", ctaId: "beneficios_comecar_gratis" },
+                  "cta:beneficios_comecar_gratis"
+                )
+                scrollToSection("precos")
+              }}
             >
               Começar grátis por 7 dias
             </Button>

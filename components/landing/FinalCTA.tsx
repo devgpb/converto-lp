@@ -2,12 +2,13 @@
 
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
+import { trackHomeEventOnce } from "@/lib/lp-tracking"
 import { scrollToSection } from "@/lib/utils"
 import { CONTACT_INFO } from "@/lib/constants"
 
 export default function FinalCTA() {
   return (
-    <section className="py-20 bg-gradient-to-br from-primary to-primary/80 text-primary-foreground relative overflow-hidden">
+    <section id="final-cta" className="py-20 bg-gradient-to-br from-primary to-primary/80 text-primary-foreground relative overflow-hidden">
       <div className="absolute inset-0 bg-[url('/abstract-tech-pattern.png')] opacity-10"></div>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <h2 className="text-3xl lg:text-5xl font-bold mb-6">Menos cliente esquecido, mais previsibilidade</h2>
@@ -21,7 +22,13 @@ export default function FinalCTA() {
             size="lg"
             variant="secondary"
             className="text-lg px-12 py-6 shadow-2xl hover:shadow-white/25 transition-all duration-300 hover:scale-105"
-            onClick={() => scrollToSection("precos")}
+            onClick={() => {
+              trackHomeEventOnce(
+                { eventName: "cta_click", section: "final_cta", ctaId: "finalcta_testar_gratis" },
+                "cta:finalcta_testar_gratis"
+              )
+              scrollToSection("precos")
+            }}
           >
             Testar grátis por 7 dias
             <ArrowRight className="ml-2 h-5 w-5" />
@@ -32,7 +39,22 @@ export default function FinalCTA() {
             className="text-lg px-12 py-6 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary bg-transparent transition-all duration-300"
             asChild
           >
-            <a href={CONTACT_INFO.whatsappUrl} target="_blank" rel="noopener noreferrer">
+            <a
+              href={CONTACT_INFO.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() =>
+                trackHomeEventOnce(
+                  {
+                    eventName: "cta_click",
+                    section: "final_cta",
+                    ctaId: "finalcta_whatsapp",
+                    metadata: { destination_host: "wa.me" },
+                  },
+                  "cta:finalcta_whatsapp"
+                )
+              }
+            >
               Falar com Especialista
             </a>
           </Button>
