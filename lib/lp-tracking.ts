@@ -40,7 +40,11 @@ type TrackHomeEventInput = {
 }
 
 const TRACKING_ENDPOINT = `${API_URL.replace(/\/$/, "")}/lp-events`
-const sentEventKeys = new Set<string>()
+const SENT_EVENTS_STORAGE_KEY = "lp_tracking_sent_events"
+
+type SentEventsStore = Partial<{
+  [K in TrackingEventName]: true | string[]
+}>
 
 function getReferrerHost() {
   if (typeof document === "undefined" || !document.referrer) return undefined
@@ -80,6 +84,69 @@ export function getDwellTimeBucket(durationMs: number): DwellTimeBucket {
 function sanitizeMetadata(metadata?: Record<string, MetadataValue | null | undefined>) {
   const entries = Object.entries(metadata ?? {}).filter(([, value]) => value !== null && value !== undefined)
   return Object.fromEntries(entries) as Record<string, MetadataValue>
+}
+
+function getSentEventsStore(): SentEventsStore {
+  if (typeof window === "undefined") return {}
+
+  try {
+    const raw = window.localStorage.getItem(SENT_EVENTS_STORAGE_KEY)
+    if (!raw) return {}
+
+    const parsed = JSON.parse(raw) as unknown
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return {}
+
+    return parsed as SentEventsStore
+  } catch {
+    return {}
+  }
+}
+
+function setSentEventsStore(store: SentEventsStore) {
+  if (typeof window === "undefined") return
+
+  try {
+    window.localStorage.setItem(SENT_EVENTS_STORAGE_KEY, JSON.stringify(store))
+  } catch {
+    // Storage failures should not block the page flow.
+  }
+}
+
+function getEventMarker(input: TrackHomeEventInput): string | null {
+  if (input.scrollBucket) return String(input.scrollBucket)
+  if (input.dwellTimeBucket) return input.dwellTimeBucket
+  if (input.ctaId) return input.ctaId
+  if (input.section && input.eventName === "section_view") return input.section
+  return null
+}
+
+function hasSentEvent(input: TrackHomeEventInput) {
+  const store = getSentEventsStore()
+  const marker = getEventMarker(input)
+  const entry = store[input.eventName]
+
+  if (marker === null) return entry === true
+  if (!Array.isArray(entry)) return false
+  return entry.includes(marker)
+}
+
+function markEventAsSent(input: TrackHomeEventInput) {
+  const store = getSentEventsStore()
+  const marker = getEventMarker(input)
+
+  if (marker === null) {
+    store[input.eventName] = true
+    setSentEventsStore(store)
+    return
+  }
+
+  const storedEntry = store[input.eventName]
+  const currentMarkers: string[] = Array.isArray(storedEntry) ? storedEntry : []
+
+  if (!currentMarkers.includes(marker)) {
+    store[input.eventName] = [...currentMarkers, marker]
+    setSentEventsStore(store)
+  }
 }
 
 export function buildTrackingPayload(input: TrackHomeEventInput): TrackingPayload | null {
@@ -122,15 +189,15 @@ function postTrackingPayload(payload: TrackingPayload, preferBeacon = false) {
 export function trackHomeEvent(input: TrackHomeEventInput, options?: { preferBeacon?: boolean }) {
   const payload = buildTrackingPayload(input)
   if (!payload) return
+  if (hasSentEvent(input)) return
+  markEventAsSent(input)
   postTrackingPayload(payload, options?.preferBeacon ?? false)
 }
 
 export function trackHomeEventOnce(
   input: TrackHomeEventInput,
-  onceKey: string,
+  _onceKey: string,
   options?: { preferBeacon?: boolean }
 ) {
-  if (sentEventKeys.has(onceKey)) return
-  sentEventKeys.add(onceKey)
   trackHomeEvent(input, options)
 }

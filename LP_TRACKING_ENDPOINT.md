@@ -9,7 +9,7 @@ Escopo inicial:
 - página `/`
 - eventos `lp_page_view`, `section_view`, `scroll_depth`, `cta_click`, `faq_open`, `gallery_interaction` e `dwell_time`
 - armazenamento sem dados pessoais e sem identificadores persistentes
-- deduplicação em memória por visita para reduzir volume de requests
+- deduplicação persistida em `localStorage` para evitar reenvio do mesmo evento ou marco já disparado
 
 ## Endpoint
 
@@ -40,21 +40,38 @@ Exemplo de request:
 
 ## Estratégia de disparo
 
-Cada evento é enviado no máximo uma vez por visita, de acordo com sua chave de deduplicação no client:
+Antes de enviar um evento, a LP consulta um objeto JSON em `localStorage` com a chave `lp_tracking_sent_events`. Se o evento ou seu marco já estiver registrado, o envio é pulado.
 
-- `lp_page_view`: uma vez por carregamento da home
-- `section_view`: uma vez por seção
-- `scroll_depth`: uma vez por marco `25`, `50`, `75`, `100`
-- `cta_click`: uma vez por `cta_id`
-- `faq_open`: uma vez no total quando houver a primeira interação com o FAQ
-- `gallery_interaction`: uma vez no total quando houver a primeira interação com a galeria
-- `dwell_time`: uma vez ao sair da página ou ocultar a aba
+Formato esperado do objeto:
+
+```json
+{
+  "lp_page_view": true,
+  "section_view": ["hero", "beneficios", "galeria"],
+  "scroll_depth": ["25", "50"],
+  "cta_click": ["header_testar_gratis", "finalcta_whatsapp"],
+  "faq_open": true,
+  "gallery_interaction": true,
+  "dwell_time": ["0_10s", "10_30s"]
+}
+```
+
+Regras de persistência por evento:
+
+- `lp_page_view`: guarda `true` após o primeiro envio
+- `section_view`: guarda a `section`
+- `scroll_depth`: guarda o `scroll_bucket`
+- `cta_click`: guarda o `cta_id`
+- `faq_open`: guarda `true` após o primeiro envio
+- `gallery_interaction`: guarda `true` após o primeiro envio
+- `dwell_time`: guarda o `dwell_time_bucket`
 
 Consequência prática:
 
-- cliques repetidos no mesmo CTA não geram novas requests
-- abrir várias perguntas do FAQ gera apenas uma request de FAQ
-- navegar, ampliar ou abrir o lightbox várias vezes na galeria gera apenas uma request de galeria
+- se `scroll_depth` com marco `50` já foi enviado antes, ele não é reenviado
+- se `cta_click` com `finalcta_whatsapp` já foi enviado antes, ele não é reenviado
+- FAQ e galeria só enviam uma vez, porque não têm marcos persistidos além do próprio evento
+- `dwell_time` só envia buckets ainda não registrados no `localStorage`
 
 ## Contrato aceito
 
