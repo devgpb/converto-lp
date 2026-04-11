@@ -38,7 +38,7 @@ export default function Features() {
     <section id="recursos" className="py-5">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-6">Para quem vende no WhatsApp e precisa de controle</h2>
+          <h2 className="text-3xl lg:text-5xl font-bold text-foreground gradient-text mb-6">Para quem vende no WhatsApp e precisa de controle</h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Mais controle, menos cliente esquecido e operação organizada. Estes são os resultados que você enxerga já no primeiro dia.
           </p>

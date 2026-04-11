@@ -1,9 +1,8 @@
 "use client"
 
 import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { MessageSquare, Users, Calendar, BarChart3, Zap, Chrome, Database } from "lucide-react"
+import { MessageSquare, Users, Calendar, BarChart3, Chrome, Database } from "lucide-react"
 import { trackHomeEventOnce } from "@/lib/lp-tracking"
 import { scrollToSection } from "@/lib/utils"
 
@@ -52,30 +51,39 @@ export default function ConvertoFeatures() {
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16 animate-fade-in-up">
-          <Badge className="mb-4 bg-primary text-primary-foreground border-primary/20 hover:bg-primary/90">
+          {/* <Badge className="mb-4 bg-primary text-primary-foreground border-primary/20 hover:bg-primary/90">
             <Zap className="w-4 h-4 mr-2" />
             Gestão comercial simples para quem vende no WhatsApp
-          </Badge>
+          </Badge> */}
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 gradient-text text-balance leading-tight">
-            Converto é o jeito mais fácil de controlar vendas sem sair do WhatsApp
+            Maneira fácil de controlar vendas sem sair do WhatsApp
           </h2>
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto text-pretty">
+          {/* <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto text-pretty">
             Ele não substitui o WhatsApp: ele coloca processo, histórico e cobrança de follow-up dentro dele. Simples, acessível e feito para pequenas empresas locais.
-          </p>
+          </p> */}
         </div>
 
         {/* Features Grid */}
         <div className="w-full">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 w-full">
             {features.map((feature, index) => (
-              <Card key={index} className="transition-all duration-300 hover-lift h-full hover:bg-muted/40">
-                <CardContent className="p-6 h-full">
-                  <div className="flex flex-col items-center text-center gap-4 h-full">
-                    <div className="p-3 rounded-xl bg-emerald-100 text-emerald-700">
-                      {feature.icon}
+              <Card
+                key={index}
+                className="h-full border-emerald-200/70 bg-background/95 shadow-sm transition-all duration-300 hover-lift hover:border-emerald-300 hover:bg-emerald-50/50"
+              >
+                <CardContent className="p-4 sm:p-5 h-full">
+                  <div className="flex h-full flex-col gap-3 text-left">
+                    <div className="flex items-center gap-3">
+                      <div className="shrink-0 text-emerald-700 [&_svg]:h-6 [&_svg]:w-6 sm:[&_svg]:h-7 sm:[&_svg]:w-7">
+                        {feature.icon}
+                      </div>
+                      <h3 className="text-lg sm:text-xl font-bold text-emerald-800 leading-tight">
+                        {feature.title}
+                      </h3>
                     </div>
-                    <h3 className="text-xl sm:text-2xl font-semibold text-emerald-700 leading-snug">{feature.title}</h3>
-                    <p className="text-base sm:text-lg text-muted-foreground text-pretty leading-relaxed">{feature.summary}</p>
+                    <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                      {feature.summary}
+                    </p>
                   </div>
                 </CardContent>
               </Card>

@@ -11,19 +11,20 @@ export default function Hero() {
     <section id="hero" className="py-20 lg:py-32 bg-gradient-to-br from-background to-muted/20 overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
-          <Badge
-            variant="secondary"
-            className="mb-6 animate-bounce bg-primary/10 text-primary border-primary/20"
-          >
-            Funciona direto no WhatsApp — sem trocar de sistema
-          </Badge>
+         
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 animate-fade-in-up">
-            Tenha controle real das vendas no WhatsApp
+            Pare de perder vendas no WhatsApp por falta de controle.
             <span className="text-primary block mt-2 bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-              sem complicações.
+              
             </span>
           </h1>
+           <Badge
+            variant="secondary"
+            className="mb-6 animate-fade-in-up bg-primary/10 text-primary border-primary/20"
+          >
+            Organize conversas, acompanhe negociações e visualize seu comercial direto no WhatsApp Web
+          </Badge>
 
           {/* <p className={`text-xl text-muted-foreground mb-8 max-w-3xl mx-auto transition-all duration-1000 delay-400 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}>
             Organize conversas, prazos e follow-ups no canal que você já usa. Nada de implantação demorada ou ferramentas complicadas — só visibilidade diária de quem está comprando e quem precisa de retorno.
@@ -61,11 +62,11 @@ export default function Hero() {
             </div>
             <div className="flex items-center justify-center p-4 bg-muted/30 rounded-lg">
               <CheckCircle className="h-5 w-5 text-primary mr-2" />
-              <div className="text-sm text-muted-foreground">Configuração em minutos</div>
+              <div className="text-sm text-muted-foreground">Método Rápido</div>
             </div>
             <div className="flex items-center justify-center p-4 bg-muted/30 rounded-lg">
               <CheckCircle className="h-5 w-5 text-primary mr-2" />
-              <div className="text-sm text-muted-foreground">Mensalidade acessível</div>
+              <div className="text-sm text-muted-foreground">Veja o que está parado</div>
             </div>
           </div>
         </div>

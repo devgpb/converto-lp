@@ -153,7 +153,7 @@ export default function Gallery() {
     <section id="galeria" className="py-20 bg-muted/10">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-6">Veja o Converto em Ação</h2>
+          <h2 className="text-3xl lg:text-5xl text-balance gradient-text leading-tight font-bold text-foreground mb-6">Veja o Converto em Ação</h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Conversas viram processo: etapas claras, alertas de retorno e carteira visível. Tudo no canal que você já usa.
           </p>
@@ -228,13 +228,23 @@ export default function Gallery() {
 
             {/* Description */}
             <div className="md:col-span-1 mt-6 md:mt-0">
-              <div className="bg-white md:bg-transparent rounded-xl md:rounded-none p-6 md:p-0 shadow-sm md:shadow-none">
-                {(() => {
-                  const ActiveIcon = activeImage?.icon
-                  return ActiveIcon ? <ActiveIcon className="h-8 w-8 text-emerald-500 mb-3" /> : null
-                })()}
-                <h3 className="text-2xl font-bold text-foreground mb-3">{activeImage?.title}</h3>
-                <p className="text-muted-foreground text-lg leading-relaxed">{activeImage?.description}</p>
+              <div className="rounded-xl border border-emerald-200/70 bg-background/95 p-4 shadow-sm md:border-0 md:bg-transparent md:p-0 md:shadow-none">
+                <div className="flex flex-col gap-3 text-left">
+                  <div className="flex items-center gap-3">
+                    {(() => {
+                      const ActiveIcon = activeImage?.icon
+                      return ActiveIcon ? (
+                        <ActiveIcon className="h-6 w-6 shrink-0 text-emerald-700 sm:h-7 sm:w-7 md:h-8 md:w-8" />
+                      ) : null
+                    })()}
+                    <h3 className="text-lg font-bold leading-tight text-emerald-800 sm:text-xl md:text-2xl md:text-foreground">
+                      {activeImage?.title}
+                    </h3>
+                  </div>
+                  <p className="text-sm leading-relaxed text-muted-foreground sm:text-base md:text-lg">
+                    {activeImage?.description}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
