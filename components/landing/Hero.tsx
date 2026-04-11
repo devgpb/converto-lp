@@ -23,7 +23,7 @@ export default function Hero() {
             variant="secondary"
             className="mb-6 animate-fade-in-up bg-primary/10 text-primary border-primary/20"
           >
-            Organize conversas, acompanhe negociações e visualize seu comercial direto no WhatsApp Web
+            Acompanhe negociações direto no WhatsApp Web
           </Badge>
 
           {/* <p className={`text-xl text-muted-foreground mb-8 max-w-3xl mx-auto transition-all duration-1000 delay-400 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}>

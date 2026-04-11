@@ -776,6 +776,14 @@ html {
   animation: spin-slow 8s linear infinite;
 }
 
+.animate-spin-slower {
+  animation: spin-slow 20s linear infinite;
+}
+
+.animate-spin-even-slower {
+  animation: spin-slow 70s linear infinite;
+}
+
 .gear-scroll-animation {
   position: fixed;
   /* Tornando a engrenagem responsiva com diferentes tamanhos por dispositivo */

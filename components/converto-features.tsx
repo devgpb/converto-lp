@@ -2,9 +2,10 @@
 
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { MessageSquare, Users, Calendar, BarChart3, Chrome, Database } from "lucide-react"
+import { MessageSquare, Users, Calendar, BarChart3, Chrome, Database, Cog } from "lucide-react"
 import { trackHomeEventOnce } from "@/lib/lp-tracking"
 import { scrollToSection } from "@/lib/utils"
+import { GearBackgroundDiv } from "./gear-background-div"
 
 export default function ConvertoFeatures() {
   const features = [
@@ -56,15 +57,33 @@ export default function ConvertoFeatures() {
             Gestão comercial simples para quem vende no WhatsApp
           </Badge> */}
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 gradient-text text-balance leading-tight">
+            O que é o Converto?
+          </h2>
+          <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto text-pretty">
+            Uma integração completa como CRM integrado ao whatsapp web que funciona por um aplicativo principal acessável pela internet e uma extensão de navegador que permite conectar com o sistema principal. Centralizando todas as informações sem precisar de complexidade. Instalação em poucos cliques e sem travamentos.
+          </p>
+        </div>
+
+        <div className="mx-auto mb-12 flex max-w-3xl items-center justify-center gap-4 sm:mb-16">
+          <div className="h-px flex-1 bg-emerald-300/80" />
+          <Cog className="h-10 w-10 shrink-0 animate-spin-slower text-emerald-700 sm:h-12 sm:w-12" aria-hidden="true" />
+          <div className="h-px flex-1 bg-emerald-300/80" />
+        </div>
+
+        <div className="text-center mb-12 sm:mb-16 animate-fade-in-up">
+          {/* <Badge className="mb-4 bg-primary text-primary-foreground border-primary/20 hover:bg-primary/90">
+            <Zap className="w-4 h-4 mr-2" />
+            Gestão comercial simples para quem vende no WhatsApp
+          </Badge> */}
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 gradient-text text-balance leading-tight">
             Maneira fácil de controlar vendas sem sair do WhatsApp
           </h2>
-          {/* <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto text-pretty">
-            Ele não substitui o WhatsApp: ele coloca processo, histórico e cobrança de follow-up dentro dele. Simples, acessível e feito para pequenas empresas locais.
-          </p> */}
+          <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto text-pretty">
+          </p>
         </div>
 
         {/* Features Grid */}
-        <div className="w-full">
+        <GearBackgroundDiv corner="bottom-right" size="giant" className="w-full">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 w-full">
             {features.map((feature, index) => (
               <Card
@@ -105,7 +124,7 @@ export default function ConvertoFeatures() {
               Começar grátis por 7 dias
             </Button>
           </div>
-        </div>
+        </GearBackgroundDiv>
       </div>
     </section>
   )
