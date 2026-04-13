@@ -1,14 +1,104 @@
 "use client"
 
+import { useEffect, useRef } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { CheckCircle } from "lucide-react"
 import { trackHomeEventOnce } from "@/lib/lp-tracking"
 import { scrollToSection } from "@/lib/utils"
 
+const HERO_VIDEO_ID = "6BwRz-BKDNI"
+const YOUTUBE_IFRAME_API_SRC = "https://www.youtube.com/iframe_api"
+const YOUTUBE_PLAYER_STATE_PLAYING = 1
+
+type YouTubePlayerEvent = {
+  data: number
+}
+
+type YouTubePlayer = {
+  destroy: () => void
+}
+
+type YouTubePlayerConstructor = new (
+  element: HTMLIFrameElement,
+  options: {
+    events: {
+      onStateChange: (event: YouTubePlayerEvent) => void
+    }
+  }
+) => YouTubePlayer
+
+declare global {
+  interface Window {
+    YT?: {
+      Player?: YouTubePlayerConstructor
+    }
+    onYouTubeIframeAPIReady?: () => void
+  }
+}
+
 export default function Hero() {
+  const iframeRef = useRef<HTMLIFrameElement>(null)
+  const playerRef = useRef<YouTubePlayer | null>(null)
+
+  useEffect(() => {
+    let isMounted = true
+
+    const trackVideoPlay = () => {
+      trackHomeEventOnce(
+        {
+          eventName: "video_play",
+          section: "hero",
+          videoId: HERO_VIDEO_ID,
+          metadata: {
+            video_provider: "youtube",
+          },
+        },
+        `video:${HERO_VIDEO_ID}:play`
+      )
+    }
+
+    const setupPlayer = () => {
+      const Player = window.YT?.Player
+      if (!isMounted || !iframeRef.current || !Player || playerRef.current) return
+
+      playerRef.current = new Player(iframeRef.current, {
+        events: {
+          onStateChange: (event) => {
+            if (event.data === YOUTUBE_PLAYER_STATE_PLAYING) {
+              trackVideoPlay()
+            }
+          },
+        },
+      })
+    }
+
+    if (window.YT?.Player) {
+      setupPlayer()
+    } else {
+      const previousReady = window.onYouTubeIframeAPIReady
+      window.onYouTubeIframeAPIReady = () => {
+        previousReady?.()
+        setupPlayer()
+      }
+
+      if (!document.querySelector(`script[src="${YOUTUBE_IFRAME_API_SRC}"]`)) {
+        const script = document.createElement("script")
+        script.src = YOUTUBE_IFRAME_API_SRC
+        script.async = true
+        document.body.appendChild(script)
+      }
+    }
+
+    return () => {
+      isMounted = false
+      playerRef.current?.destroy()
+      playerRef.current = null
+    }
+  }, [])
+
   return (
-    <section id="hero" className="py-20 lg:py-32 bg-gradient-to-br from-background to-muted/20 overflow-hidden">
+    <section id="hero" className="py-10 lg:py-32 bg-gradient-to-br from-background to-muted/20 overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
          
@@ -19,12 +109,28 @@ export default function Hero() {
               
             </span>
           </h1>
-           <Badge
+
+          <Badge
             variant="secondary"
             className="mb-6 animate-fade-in-up bg-primary/10 text-primary border-primary/20"
           >
-            Acompanhe negociações direto no WhatsApp Web
+            Veja o vídeo e descubra agora
           </Badge>
+
+          <div className="mx-auto mb-12 w-full max-w-4xl animate-fade-in-up">
+            <div className="overflow-hidden rounded-lg border border-border bg-black shadow-2xl">
+              <iframe
+                ref={iframeRef}
+                className="aspect-video w-full"
+                src={`https://www.youtube.com/embed/${HERO_VIDEO_ID}?enablejsapi=1&rel=0&modestbranding=1`}
+                title="Demonstração do Converto no WhatsApp Web"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            </div>
+          </div>
+
+           
 
           {/* <p className={`text-xl text-muted-foreground mb-8 max-w-3xl mx-auto transition-all duration-1000 delay-400 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}>
             Organize conversas, prazos e follow-ups no canal que você já usa. Nada de implantação demorada ou ferramentas complicadas — só visibilidade diária de quem está comprando e quem precisa de retorno.
@@ -39,21 +145,8 @@ export default function Hero() {
               Começar grátis por 7 dias
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button> */}
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-primary text-primary hover:bg-primary/10 text-lg px-10 py-6"
-              onClick={() => {
-                trackHomeEventOnce(
-                  { eventName: "cta_click", section: "hero", ctaId: "hero_ver_como_funciona" },
-                  "cta:hero_ver_como_funciona"
-                )
-                scrollToSection("beneficios")
-              }}
-            >
-              Ver como funciona
-            </Button>
-          </div>
+           
+          
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl mx-auto animate-fade-in-up">
             <div className="flex items-center justify-center p-4 bg-muted/30 rounded-lg">
@@ -69,6 +162,23 @@ export default function Hero() {
               <div className="text-sm text-muted-foreground">Veja o que está parado</div>
             </div>
           </div>
+
+           <Button
+              size="lg"
+              variant="outline"
+              className="border-primary text-primary hover:bg-primary/10 text-lg px-10 py-6"
+              onClick={() => {
+                trackHomeEventOnce(
+                  { eventName: "cta_click", section: "hero", ctaId: "hero_ver_como_funciona" },
+                  "cta:hero_ver_como_funciona"
+                )
+                scrollToSection("beneficios")
+              }}
+            >
+              Saber mais
+            </Button>
+          </div>
+
         </div>
       </div>
     </section>

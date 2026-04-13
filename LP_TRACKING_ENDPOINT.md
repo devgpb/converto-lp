@@ -7,7 +7,7 @@ Este documento define como a API externa do Converto deve receber, validar, norm
 Escopo inicial:
 
 - página `/`
-- eventos `lp_page_view`, `section_view`, `scroll_depth`, `cta_click`, `faq_open`, `gallery_interaction` e `dwell_time`
+- eventos `lp_page_view`, `section_view`, `scroll_depth`, `cta_click`, `faq_open`, `gallery_interaction`, `video_play` e `dwell_time`
 - armazenamento sem dados pessoais e sem identificadores persistentes
 - deduplicação persistida em `localStorage` para evitar reenvio do mesmo evento ou marco já disparado
 
@@ -52,6 +52,7 @@ Formato esperado do objeto:
   "cta_click": ["header_testar_gratis", "finalcta_whatsapp"],
   "faq_open": true,
   "gallery_interaction": true,
+  "video_play": ["6BwRz-BKDNI"],
   "dwell_time": ["0_10s", "10_30s"]
 }
 ```
@@ -64,6 +65,7 @@ Regras de persistência por evento:
 - `cta_click`: guarda o `cta_id`
 - `faq_open`: guarda `true` após o primeiro envio
 - `gallery_interaction`: guarda `true` após o primeiro envio
+- `video_play`: guarda o ID do vídeo após a primeira reprodução
 - `dwell_time`: guarda o `dwell_time_bucket`
 
 Consequência prática:
@@ -71,6 +73,7 @@ Consequência prática:
 - se `scroll_depth` com marco `50` já foi enviado antes, ele não é reenviado
 - se `cta_click` com `finalcta_whatsapp` já foi enviado antes, ele não é reenviado
 - FAQ e galeria só enviam uma vez, porque não têm marcos persistidos além do próprio evento
+- `video_play` só envia vídeos ainda não registrados no `localStorage`
 - `dwell_time` só envia buckets ainda não registrados no `localStorage`
 
 ## Contrato aceito
@@ -97,6 +100,7 @@ Allowlist de `event_name`:
 - `cta_click`
 - `faq_open`
 - `gallery_interaction`
+- `video_play`
 - `dwell_time`
 
 Allowlist inicial de `section`:
@@ -125,6 +129,7 @@ Exemplos de `metadata` esperados por evento:
 
 - `faq_open`: sem metadata obrigatória
 - `gallery_interaction`: opcional `first_action`, informando qual foi a primeira interação observada
+- `video_play`: `video_id` e opcional `video_provider`
 - `cta_click`: opcional `destination_host`
 
 ## Regras de validação e normalização

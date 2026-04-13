@@ -9,6 +9,7 @@ export type TrackingEventName =
   | "cta_click"
   | "faq_open"
   | "gallery_interaction"
+  | "video_play"
   | "dwell_time"
 
 export type DwellTimeBucket = "0_10s" | "10_30s" | "30_60s" | "60_180s" | "180s_plus"
@@ -34,6 +35,7 @@ type TrackHomeEventInput = {
   eventName: TrackingEventName
   section?: string
   ctaId?: string
+  videoId?: string
   scrollBucket?: 25 | 50 | 75 | 100
   dwellTimeBucket?: DwellTimeBucket
   metadata?: Record<string, MetadataValue | null | undefined>
@@ -116,6 +118,7 @@ function getEventMarker(input: TrackHomeEventInput): string | null {
   if (input.scrollBucket) return String(input.scrollBucket)
   if (input.dwellTimeBucket) return input.dwellTimeBucket
   if (input.ctaId) return input.ctaId
+  if (input.eventName === "video_play" && input.videoId) return input.videoId
   if (input.section && input.eventName === "section_view") return input.section
   return null
 }
@@ -163,7 +166,10 @@ export function buildTrackingPayload(input: TrackHomeEventInput): TrackingPayloa
     device_type: getDeviceType(),
     screen_category: getScreenCategory(),
     occurred_at: new Date().toISOString(),
-    metadata: sanitizeMetadata(input.metadata),
+    metadata: sanitizeMetadata({
+      ...input.metadata,
+      video_id: input.videoId,
+    }),
   }
 }
 
