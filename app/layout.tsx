@@ -1,15 +1,15 @@
 import type { Metadata, Viewport } from 'next'
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
-import Script from 'next/script'
+// import Script from 'next/script'
 
 import './globals.css'
-import ConsentBanner from '@/components/consent-banner'
+// import ConsentBanner from '@/components/consent-banner'
 import InitialScrollGuard from '@/components/initial-scroll-guard'
-import GoogleAdsConsentSync from '@/components/google-ads-consent-sync'
+// import GoogleAdsConsentSync from '@/components/google-ads-consent-sync'
 import WhatsappFloat from '@/components/whatsapp-float'
-import { CONSENT_STORAGE_KEY } from '@/lib/consent'
-import { GOOGLE_ADS_ID } from '@/lib/google-ads'
+// import { CONSENT_STORAGE_KEY } from '@/lib/consent'
+// import { GOOGLE_ADS_ID } from '@/lib/google-ads'
 
 const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.useconverto.com/').replace(/\/$/, '')
 const siteName = 'Converto'
@@ -107,6 +107,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <head>
+        {/*
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_ID}`}
           strategy="beforeInteractive"
@@ -139,6 +140,7 @@ export default function RootLayout({
             window.gtag('config', '${GOOGLE_ADS_ID}');
           `}
         </Script>
+        */}
         <style>{`
 html {
   font-family: ${GeistSans.style.fontFamily};
@@ -149,8 +151,8 @@ html {
       </head>
       <body>
         <InitialScrollGuard />
-        <ConsentBanner />
-        <GoogleAdsConsentSync />
+        {/* <ConsentBanner /> */}
+        {/* <GoogleAdsConsentSync /> */}
         {children}
         <WhatsappFloat />
       </body>
