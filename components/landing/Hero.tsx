@@ -104,7 +104,8 @@ export default function Hero() {
          
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 animate-fade-in-up">
-            Pare de perder vendas no WhatsApp por falta de controle.
+
+            Veja o vídeo e descubra rapidamente aumentar suas vendas no WhatsApp
             <span className="text-primary block mt-2 bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
               
             </span>
@@ -114,7 +115,7 @@ export default function Hero() {
             variant="secondary"
             className="mb-6 animate-fade-in-up bg-primary/10 text-primary border-primary/20"
           >
-            Veja o vídeo e descubra agora
+            Pare de perder vendas no WhatsApp por falta de controle.
           </Badge>
 
           <div className="mx-auto mb-12 w-full max-w-4xl animate-fade-in-up">
