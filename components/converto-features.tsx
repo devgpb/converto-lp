@@ -6,6 +6,7 @@ import { MessageSquare, Users, Calendar, BarChart3, Chrome, Database, Cog } from
 import { trackHomeEventOnce } from "@/lib/lp-tracking"
 import { scrollToSection } from "@/lib/utils"
 import { GearBackgroundDiv } from "./gear-background-div"
+import Image from "next/image"
 
 export default function ConvertoFeatures() {
   const features = [
@@ -62,6 +63,18 @@ export default function ConvertoFeatures() {
           <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto text-pretty">
             Uma integração completa como CRM integrado ao whatsapp web que funciona por um aplicativo principal acessável pela internet e uma extensão de navegador que permite conectar com o sistema principal. Centralizando todas as informações sem precisar de complexidade. Instalação em poucos cliques e sem travamentos.
           </p>
+        </div>
+
+        
+        <div className="mx-auto w-full max-w-4xl">
+          <Image
+            src="/LP_Imagem_1.png"
+            alt="Mais de 100 clientes em Pernambuco"
+            width={1000}
+            height={200}
+            sizes="100vw"
+            className="h-auto w-full"
+          />
         </div>
 
         <div className="mx-auto mb-12 flex max-w-3xl items-center justify-center gap-4 sm:mb-16">

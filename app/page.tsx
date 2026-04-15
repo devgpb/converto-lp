@@ -173,13 +173,13 @@ export default function LandingPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
-      <FloatingIndicator />
-      <Header />
+      {/* <FloatingIndicator /> */}
+      {/* <Header /> */}
       <main>
         <Hero />
         <ConvertoFeatures />
         <Gallery />
-        <Features />
+        {/* <Features /> */}
         <Planos />
         <FAQ />
         <FinalCTA />

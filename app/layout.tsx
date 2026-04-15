@@ -154,7 +154,7 @@ html {
         {/* <ConsentBanner /> */}
         {/* <GoogleAdsConsentSync /> */}
         {children}
-        <WhatsappFloat />
+        {/* <WhatsappFloat /> */}
       </body>
     </html>
   )
