@@ -19,7 +19,10 @@ export default function FAQ() {
             className="space-y-4"
             onValueChange={(value) => {
               if (!value) return
-              trackHomeEventOnce({ eventName: "faq_open", section: "faq" }, "faq:any_interaction")
+              trackHomeEventOnce(
+                { eventName: "faq_open", section: "faq", metadata: { item_id: value } },
+                "faq:any_interaction"
+              )
             }}
           >
             <AccordionItem value="item-1" className="border rounded-lg px-6 hover:shadow-lg transition-all duration-300">

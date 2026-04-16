@@ -5,6 +5,7 @@ import { getDwellTimeBucket, trackHomeEvent } from "@/lib/lp-tracking"
 
 const SECTION_TARGETS = [
   { id: "hero", section: "hero" },
+  { id: "impacto-inicial", section: "impacto_inicial" },
   { id: "beneficios", section: "beneficios" },
   { id: "galeria", section: "galeria" },
   { id: "recursos", section: "recursos" },

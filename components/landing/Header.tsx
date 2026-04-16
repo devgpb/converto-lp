@@ -45,7 +45,12 @@ export default function Header() {
                 href="#precos"
                 onClick={() =>
                   trackHomeEventOnce(
-                    { eventName: "cta_click", section: "hero", ctaId: "header_testar_gratis" },
+                    {
+                      eventName: "cta_click",
+                      section: "hero",
+                      ctaId: "header_testar_gratis",
+                      metadata: { destination_section: "precos" },
+                    },
                     "cta:header_testar_gratis"
                   )
                 }
@@ -88,7 +93,12 @@ export default function Header() {
                       href="#precos"
                       onClick={() => {
                         trackHomeEventOnce(
-                          { eventName: "cta_click", section: "hero", ctaId: "mobile_header_testar_gratis" },
+                          {
+                            eventName: "cta_click",
+                            section: "hero",
+                            ctaId: "mobile_header_testar_gratis",
+                            metadata: { destination_section: "precos" },
+                          },
                           "cta:mobile_header_testar_gratis"
                         )
                         setIsMenuOpen(false)

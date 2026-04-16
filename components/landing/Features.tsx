@@ -69,7 +69,12 @@ export default function Features() {
             className="bg-primary text-primary-foreground px-10 py-6 text-lg"
             onClick={() => {
               trackHomeEventOnce(
-                { eventName: "cta_click", section: "recursos", ctaId: "recursos_comecar_gratis" },
+                {
+                  eventName: "cta_click",
+                  section: "recursos",
+                  ctaId: "recursos_comecar_gratis",
+                  metadata: { destination_section: "precos" },
+                },
                 "cta:recursos_comecar_gratis"
               )
               scrollToSection("precos")
@@ -84,7 +89,12 @@ export default function Features() {
             className="px-10 py-6 text-lg"
             onClick={() => {
               trackHomeEventOnce(
-                { eventName: "cta_click", section: "recursos", ctaId: "recursos_ver_beneficios" },
+                {
+                  eventName: "cta_click",
+                  section: "recursos",
+                  ctaId: "recursos_ver_beneficios",
+                  metadata: { destination_section: "beneficios" },
+                },
                 "cta:recursos_ver_beneficios"
               )
               scrollToSection("beneficios")

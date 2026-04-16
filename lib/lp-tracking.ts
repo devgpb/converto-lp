@@ -1,42 +1,36 @@
 "use client"
 
 import { API_URL } from "@/lib/api"
+import type {
+  DeviceType,
+  DwellTimeBucket,
+  MetadataValue,
+  ScreenCategory,
+  ScrollBucket,
+  TrackingEventName,
+  TrackingPayload,
+} from "@/lib/lp-tracking-events"
 
-export type TrackingEventName =
-  | "lp_page_view"
-  | "section_view"
-  | "scroll_depth"
-  | "cta_click"
-  | "faq_open"
-  | "gallery_interaction"
-  | "video_play"
-  | "dwell_time"
-
-export type DwellTimeBucket = "0_10s" | "10_30s" | "30_60s" | "60_180s" | "180s_plus"
-export type DeviceType = "mobile" | "tablet" | "desktop"
-export type ScreenCategory = "xs" | "sm" | "md" | "lg" | "xl" | "2xl"
-type MetadataValue = string | number | boolean
-
-export type TrackingPayload = {
-  event_name: TrackingEventName
-  page: "/"
-  section?: string
-  cta_id?: string
-  scroll_bucket?: 25 | 50 | 75 | 100
-  dwell_time_bucket?: DwellTimeBucket
-  referrer_host?: string
-  device_type: DeviceType
-  screen_category: ScreenCategory
-  occurred_at: string
-  metadata: Record<string, MetadataValue>
-}
+export type {
+  DeviceType,
+  DwellTimeBucket,
+  LpCtaId,
+  LpEmittedEventPayload,
+  LpSection,
+  MetadataValue,
+  ScreenCategory,
+  ScrollBucket,
+  TrackingEventName,
+  TrackingPayload,
+} from "@/lib/lp-tracking-events"
 
 type TrackHomeEventInput = {
   eventName: TrackingEventName
   section?: string
   ctaId?: string
+  onceKey?: string
   videoId?: string
-  scrollBucket?: 25 | 50 | 75 | 100
+  scrollBucket?: ScrollBucket
   dwellTimeBucket?: DwellTimeBucket
   metadata?: Record<string, MetadataValue | null | undefined>
 }
@@ -120,6 +114,7 @@ function getEventMarker(input: TrackHomeEventInput): string | null {
   if (input.ctaId) return input.ctaId
   if (input.eventName === "video_play" && input.videoId) return input.videoId
   if (input.section && input.eventName === "section_view") return input.section
+  if (input.onceKey) return input.onceKey
   return null
 }
 
@@ -202,8 +197,8 @@ export function trackHomeEvent(input: TrackHomeEventInput, options?: { preferBea
 
 export function trackHomeEventOnce(
   input: TrackHomeEventInput,
-  _onceKey: string,
+  onceKey: string,
   options?: { preferBeacon?: boolean }
 ) {
-  trackHomeEvent(input, options)
+  trackHomeEvent({ ...input, onceKey }, options)
 }

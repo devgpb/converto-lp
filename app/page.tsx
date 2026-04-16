@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import FloatingIndicator from "@/components/landing/FloatingIndicator"
 import Header from "@/components/landing/Header"
 import Hero from "@/components/landing/Hero"
+import ImpactoInicial from "@/components/landing/ImpactoInicial"
 import Gallery from "@/components/landing/Gallery"
 import ConvertoFeatures from "@/components/converto-features"
 import Features from "@/components/landing/Features"
@@ -177,8 +178,9 @@ export default function LandingPage() {
       {/* <Header /> */}
       <main>
         <Hero />
+        <ImpactoInicial />
         <ConvertoFeatures />
-        <Gallery />
+        {/* <Gallery /> */}
         {/* <Features /> */}
         <Planos />
         <FAQ />

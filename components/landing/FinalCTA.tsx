@@ -24,7 +24,12 @@ export default function FinalCTA() {
             className="text-lg px-12 py-6 shadow-2xl hover:shadow-white/25 transition-all duration-300 hover:scale-105"
             onClick={() => {
               trackHomeEventOnce(
-                { eventName: "cta_click", section: "final_cta", ctaId: "finalcta_testar_gratis" },
+                {
+                  eventName: "cta_click",
+                  section: "final_cta",
+                  ctaId: "finalcta_testar_gratis",
+                  metadata: { destination_section: "precos" },
+                },
                 "cta:finalcta_testar_gratis"
               )
               scrollToSection("precos")

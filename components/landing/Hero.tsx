@@ -191,10 +191,15 @@ export default function Hero() {
               className="border-primary text-primary hover:bg-primary/10 text-lg px-10 py-6"
               onClick={() => {
                 trackHomeEventOnce(
-                  { eventName: "cta_click", section: "hero", ctaId: "hero_ver_como_funciona" },
-                  "cta:hero_ver_como_funciona"
+                  {
+                    eventName: "cta_click",
+                    section: "hero",
+                    ctaId: "hero_saber_mais",
+                    metadata: { destination_section: "impacto_inicial" },
+                  },
+                  "cta:hero_saber_mais"
                 )
-                scrollToSection("beneficios")
+                scrollToSection("impacto-inicial")
               }}
             >
               SABER MAIS

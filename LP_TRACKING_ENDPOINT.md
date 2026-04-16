@@ -7,7 +7,7 @@ Este documento define como a API externa do Converto deve receber, validar, norm
 Escopo inicial:
 
 - página `/`
-- eventos `lp_page_view`, `section_view`, `scroll_depth`, `cta_click`, `faq_open`, `gallery_interaction`, `video_play` e `dwell_time`
+- eventos `lp_page_view`, `section_view`, `scroll_depth`, `cta_click`, `faq_open`, `gallery_interaction`, `feature_zoom`, `video_play` e `dwell_time`
 - armazenamento sem dados pessoais e sem identificadores persistentes
 - deduplicação persistida em `localStorage` para evitar reenvio do mesmo evento ou marco já disparado
 
@@ -47,11 +47,12 @@ Formato esperado do objeto:
 ```json
 {
   "lp_page_view": true,
-  "section_view": ["hero", "beneficios", "galeria"],
+  "section_view": ["hero", "impacto_inicial", "beneficios", "galeria"],
   "scroll_depth": ["25", "50"],
   "cta_click": ["header_testar_gratis", "finalcta_whatsapp"],
-  "faq_open": true,
-  "gallery_interaction": true,
+  "faq_open": ["faq:any_interaction"],
+  "gallery_interaction": ["gallery:any_interaction"],
+  "feature_zoom": ["feature_zoom:extensao_navegador"],
   "video_play": ["6BwRz-BKDNI"],
   "dwell_time": ["0_10s", "10_30s"]
 }
@@ -63,8 +64,9 @@ Regras de persistência por evento:
 - `section_view`: guarda a `section`
 - `scroll_depth`: guarda o `scroll_bucket`
 - `cta_click`: guarda o `cta_id`
-- `faq_open`: guarda `true` após o primeiro envio
-- `gallery_interaction`: guarda `true` após o primeiro envio
+- `faq_open`: guarda a `onceKey`, atualmente `faq:any_interaction`
+- `gallery_interaction`: guarda a `onceKey`, atualmente `gallery:any_interaction`
+- `feature_zoom`: guarda a `onceKey` por funcionalidade ampliada, no formato `feature_zoom:{feature_id}`
 - `video_play`: guarda o ID do vídeo após a primeira reprodução
 - `dwell_time`: guarda o `dwell_time_bucket`
 
@@ -72,7 +74,8 @@ Consequência prática:
 
 - se `scroll_depth` com marco `50` já foi enviado antes, ele não é reenviado
 - se `cta_click` com `finalcta_whatsapp` já foi enviado antes, ele não é reenviado
-- FAQ e galeria só enviam uma vez, porque não têm marcos persistidos além do próprio evento
+- FAQ e galeria só enviam uma vez por chave de interação, porque usam `onceKey` no helper da LP
+- zoom de funcionalidade envia no máximo uma vez por `feature_id`
 - `video_play` só envia vídeos ainda não registrados no `localStorage`
 - `dwell_time` só envia buckets ainda não registrados no `localStorage`
 
@@ -100,12 +103,14 @@ Allowlist de `event_name`:
 - `cta_click`
 - `faq_open`
 - `gallery_interaction`
+- `feature_zoom`
 - `video_play`
 - `dwell_time`
 
 Allowlist inicial de `section`:
 
 - `hero`
+- `impacto_inicial`
 - `beneficios`
 - `galeria`
 - `recursos`
@@ -118,6 +123,7 @@ Exemplos de `cta_id` já usados pela LP:
 - `header_testar_gratis`
 - `mobile_header_testar_gratis`
 - `hero_ver_como_funciona`
+- `hero_saber_mais`
 - `beneficios_comecar_gratis`
 - `recursos_comecar_gratis`
 - `recursos_ver_beneficios`
@@ -127,10 +133,42 @@ Exemplos de `cta_id` já usados pela LP:
 
 Exemplos de `metadata` esperados por evento:
 
-- `faq_open`: sem metadata obrigatória
+- `faq_open`: opcional `item_id`, informando qual item foi aberto primeiro
 - `gallery_interaction`: opcional `first_action`, informando qual foi a primeira interação observada
+- `feature_zoom`: `feature_id` e opcionais `feature_title`, `feature_index` e `image_src`
 - `video_play`: `video_id` e opcional `video_provider`
-- `cta_click`: opcional `destination_host`
+- `cta_click`: opcional `destination_section`, `destination_path` ou `destination_host`
+
+## Tipagem da LP
+
+A LP mantém a tipagem dos payloads emitidos em `lib/lp-tracking-events.ts`.
+
+Tipos principais:
+
+- `TrackingPayload`: formato base aceito pelo helper de envio
+- `LpEmittedEventPayload`: união discriminada com todos os formatos que a LP pode emitir
+- `LpPageViewPayload`, `LpSectionViewPayload`, `LpScrollDepthPayload`, `LpCtaClickPayload`, `LpFaqOpenPayload`, `LpGalleryInteractionPayload`, `LpFeatureZoomPayload`, `LpVideoPlayPayload` e `LpDwellTimePayload`: tipos específicos por evento
+- `LpSection`, `LpCtaId`, `ScrollBucket`, `DwellTimeBucket`, `DeviceType` e `ScreenCategory`: allowlists compartilhadas com o contrato
+
+Exemplo de evento novo emitido ao ampliar uma funcionalidade:
+
+```json
+{
+  "event_name": "feature_zoom",
+  "page": "/",
+  "section": "beneficios",
+  "referrer_host": "google.com",
+  "device_type": "desktop",
+  "screen_category": "xl",
+  "occurred_at": "2026-04-08T12:00:00.000Z",
+  "metadata": {
+    "feature_id": "extensao_navegador",
+    "feature_title": "Extensão de navegador",
+    "feature_index": 1,
+    "image_src": "/ext_whatss.png"
+  }
+}
+```
 
 ## Regras de validação e normalização
 

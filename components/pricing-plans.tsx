@@ -75,7 +75,12 @@ export function PricingPlans() {
   const handleGetStarted = () => {
     // Trial de 7 dias com cobrança iniciando após confirmação do cliente.
     trackHomeEventOnce(
-      { eventName: "cta_click", section: "precos", ctaId: "pricing_comecar_agora" },
+      {
+        eventName: "cta_click",
+        section: "precos",
+        ctaId: "pricing_comecar_agora",
+        metadata: { destination_path: "/cadastro" },
+      },
       "cta:pricing_comecar_agora"
     )
     router.push("/cadastro")
