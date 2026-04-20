@@ -146,7 +146,7 @@ export default function Hero() {
           </Badge>
           
 
-          <div className="mx-auto mb-12 w-full max-w-4xl animate-fade-in-up">
+          {/* <div className="mx-auto mb-12 w-full max-w-4xl animate-fade-in-up">
             <div className="overflow-hidden rounded-lg border border-border bg-black shadow-2xl">
               <iframe
                 ref={iframeRef}
@@ -157,7 +157,7 @@ export default function Hero() {
                 allowFullScreen
               />
             </div>
-          </div>
+          </div> */}
 
            
 
