@@ -18,7 +18,6 @@ import { extractCheckoutTransactionId, reportGoogleAdsConversion } from "@/lib/g
 interface Plan {
   id: string
   label: string
-  priceId: string
   description: string
   pricePerSeat: number
   minSeats: number
@@ -39,7 +38,6 @@ const plans: Plan[] = [
   {
     id: "starter",
     label: "1 conta",
-    priceId: "price_1SREz3GIUmR0keuMlMFyisTZ",
     description: "Ideal para freelancers e pequenos negócios",
     pricePerSeat: 29.9,
     minSeats: 1,
@@ -48,7 +46,6 @@ const plans: Plan[] = [
   {
     id: "team",
     label: "2 até 3 contas",
-    priceId: "price_1SREz3GIUmR0keuMlMFyisTZ",
     description: "Perfeito para equipes pequenas",
     pricePerSeat: 23.0,
     minSeats: 2,
@@ -57,7 +54,6 @@ const plans: Plan[] = [
   {
     id: "medium",
     label: "4 até 5 contas",
-    priceId: "price_1SREz3GIUmR0keuMlMFyisTZ",
     description: "Para empresas em crescimento",
     pricePerSeat: 26.0,
     minSeats: 4,
@@ -66,7 +62,6 @@ const plans: Plan[] = [
   {
     id: "large",
     label: "6+ contas",
-    priceId: "price_1SREz3GIUmR0keuMlMFyisTZ",
     description: "Para grandes organizações",
     pricePerSeat: 30.0,
     minSeats: 6,
@@ -155,8 +150,9 @@ export function CheckoutForm() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+
           tenant_id: tenantId,
-          price_id: currentPlan.priceId,
+          plan_id: currentPlan.id,
           seatCountInicial: accountType === "personal" ? 1 : seats,
           success_url: `${window.location.origin}/confirmacao`,
           cancel_url: `${window.location.origin}/checkout`,
