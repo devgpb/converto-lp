@@ -5,9 +5,7 @@ import { GeistMono } from 'geist/font/mono'
 
 import './globals.css'
 // import ConsentBanner from '@/components/consent-banner'
-import InitialScrollGuard from '@/components/initial-scroll-guard'
 // import GoogleAdsConsentSync from '@/components/google-ads-consent-sync'
-import WhatsappFloat from '@/components/whatsapp-float'
 // import { CONSENT_STORAGE_KEY } from '@/lib/consent'
 // import { GOOGLE_ADS_ID } from '@/lib/google-ads'
 
@@ -150,7 +148,6 @@ html {
         `}</style>
       </head>
       <body>
-        <InitialScrollGuard />
         {/* <ConsentBanner /> */}
         {/* <GoogleAdsConsentSync /> */}
         {children}

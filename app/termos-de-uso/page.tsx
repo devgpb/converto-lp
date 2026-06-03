@@ -1,4 +1,6 @@
 import type { Metadata } from "next"
+import { CONTACT_INFO } from "@/lib/constants"
+
 
 export const metadata: Metadata = {
   title: "Termos de Uso | Converto",
@@ -179,7 +181,7 @@ export default function TermosDeUsoPage() {
             </h2>
             <p>
               Dúvidas ou solicitações: converto-contato@gmail.com ou WhatsApp
-              (87) 99135-8619.
+              {CONTACT_INFO.phoneDisplay}.
             </p>
           </section>
         </div>

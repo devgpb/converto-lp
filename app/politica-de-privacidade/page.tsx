@@ -1,5 +1,7 @@
 import type { Metadata } from "next"
 
+import { CONTACT_INFO } from "@/lib/constants"
+
 export const metadata: Metadata = {
   title: "Política de Privacidade | Converto",
   description: "Entenda como o Converto coleta, usa e protege seus dados.",
@@ -99,7 +101,7 @@ export default function PoliticaDePrivacidade() {
       <section className="space-y-3">
         <h2 className="text-2xl font-semibold">11. Contato</h2>
         <p className="text-muted-foreground">
-          Dúvidas ou solicitações sobre privacidade: converto-contato@gmail.com ou WhatsApp {"(87) 99135-8619"}.
+          Dúvidas ou solicitações sobre privacidade: converto-contato@gmail.com ou WhatsApp {CONTACT_INFO.phoneDisplay}.
         </p>
       </section>
     </main>
