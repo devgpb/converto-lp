@@ -8,7 +8,7 @@ export default function WhatsappFloat() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`Falar no WhatsApp em ${CONTACT_INFO.phoneDisplay}`}
-      className="whatsapp-float fixed right-4 bottom-4 z-50 sm:right-6 sm:bottom-6"
+      className="whatsapp-float fixed right-4 bottom-4 z-50 sm:right-6 sm:bottom-6 sm:right-12"
     >
       <span className="sr-only">Falar no WhatsApp</span>
       <span aria-hidden="true" className="whatsapp-float-ring" />
